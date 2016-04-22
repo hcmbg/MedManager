@@ -1,0 +1,174 @@
+<html>
+<head> 
+	<meta charset="UTF-8">
+	<link href="css/main.css" rel="stylesheet" />
+	<link href="css/bootstrap.css" rel="stylesheet"/>
+	<link href='https://fonts.googleapis.com/css?family=Poppins:400,700' rel='stylesheet' type='text/css'>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="main.html">MedManager</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<p class="navbar-text">Patient Page: Sharon Lastname</p>
+					<p class="navbar-text" id="currentTime" href="#">Current Time: 6:30AM</p>
+					<p class="navbar-text">Signed in as: Katrina</p>
+					<li><a href="index.html" id="login">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<form class="form-inline" role="form">
+	  
+	<fieldset class="form-group" style="width: 45%;">
+		<input type="Name" class="form-control" id="inputName" value="Sharon Lastname" style="height: 83px; font-size: 36; margin-left: 2%; width: 70%;">
+
+	</fieldset>
+	<div class="form-group">
+	    <input type="room" class="form-control" id="room" value="Room: 503" style="height: 50px; font-size: 18; margin-left: -125px;">
+	  </div>
+
+</form>
+	<table align= "center" style="width: 98%;">
+		<tr style="width: 100%;">
+			<td valign = "top" style="width: 33%; padding-right: 25px;">
+
+				<div style="text-align:center; padding-bottom: 13px;">
+					<img src="photos/profile.png" style="height: 200px; width: auto;" id ="patientPhoto">
+					<button type="button" id="uploadPhoto" class="btn btn-default navbar-btn">Upload Photo</button>				
+		        </div>
+
+				<div class="panel panel-info" >
+					<div class="panel-heading">
+						<h3 class="panel-title">Patient Information</h3>
+					</div>
+					<div class="panel-body" style="font-size: 14;">
+						<fieldset class="form-group">
+
+							<textarea class="form-control" id="PatientInfo" rows="7">DOB: 11/3/1986
+Height: 5'4"
+Weight: 160 lb
+Address: 123 Rainbow Road
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Boston, MA 02212
+Allergies: Grass</textarea>
+						</fieldset>
+					</div>
+				</div>
+			</td>
+			<td valign = "top" style="width: 65%;">
+				<div class="panel panel-info">
+					<!-- Default panel contents -->
+					<div class="panel-heading">
+						<h3 class="panel-title">Medication</h3>
+					</div>
+
+					<!-- Table -->
+					<table class="table" id="medTable">
+						<tr style="font-size: 14;">
+							<th>Name</th>
+							<th>Dosage</th>
+							<th>Frequency</th>
+						</tr>
+						<tr style="font-size: 14;">
+							<td> <fieldset class="form-group">
+								<input type="name" class="form-control" id="name" value="Rivaroxaban">
+							</fieldset> </td>
+							<td> <fieldset class="form-group">
+								<input type="dosage" class="form-control" id="dosage" value="200mg">
+							</fieldset> </td></td>
+							<td><fieldset class="form-group">
+								<input type="frequency" class="form-control" id="frequency" value="Once daily">
+							</fieldset> </td></td>
+						</tr>
+						<tr style="font-size: 14;">
+							<td> <fieldset class="form-group">
+								<input type="name" class="form-control" id="name" value="Nitroglycerin">
+							</fieldset> </td>
+							<td> <fieldset class="form-group">
+								<input type="dosage" class="form-control" id="dosage" value="300mg">
+							</fieldset> </td></td>
+							<td><fieldset class="form-group">
+								<input type="frequency" class="form-control" id="frequency" value="Every 2-4 hours, daily">
+							</fieldset> </td></td>
+						</tr>
+						<tr> <td colspan = "3">
+							<button type="button" id="addMed" class="btn btn-default navbar-btn">+ Add Medication</button>
+						</td></tr>
+					</table>
+				</div>
+
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Medical Information</h3>
+					</div>
+					<div class="panel-body" style="font-size: 14;">
+						<fieldset class="form-group">
+							<textarea class="form-control" id="MedicalInfo" rows="8">Lorem ipsum dolor sit amet, vim et legendos urbanitas, eu epicuri imperdiet eum. Ius lucilius constituto persequeris ex, mel ne constituto vituperata. Semper nonumes electram quo ne. Mandamus pericula usu ex, an sed wisi dicam. Suas noluisse hendrerit sit eu, eam epicurei erroribus at.
+
+							Cum docendi accommodare ad, ad debitis principes consetetur qui. Pro alterum sensibus ex, ut sit libris quaeque ancillae. Sea sint iudico doming cu, quaeque detracto cum id. Ludus lucilius ad duo, pri impetus accumsan detraxit id. At amet modo delicata vim, debitis nostrum convenire vis ei. Delenit dolorem conclusionemque te mei, an vim impedit disputationi. Mel natum scriptorem ei, ad dictas delectus has, sed oratio legimus te.
+
+							Ne stet dicam oportere qui, populo eruditi eu duo. Sed aliquam adolescens ullamcorper at. Dicam consulatu ne has, qui et tale atomorum persequeris. Ut voluptatibus signiferumque nec.
+
+							Nonumy legimus volumus usu eu. Persius mediocrem eu nam, te eos omnium facilis, sed idque graeci intellegebat ne. Qui simul integre democritum id, vim ei tantas ridens imperdiet. Et sale officiis conclusionemque mei. Per ea sint dolore singulis, simul vocent ei cum.
+
+							Mel simul munere no, elitr mnesarchum efficiantur no est. An urbanitas scripserit qui, vim simul decore everti ut, vel errem legere adipisci id. Mei ut enim aperiam, verear nonumes salutatus sed at. Vix te petentium assentior philosophia, mea et accusam splendide reprimique.</textarea>
+						</fieldset>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+  <script type="text/javascript">
+		$(function() {
+		  $("#addMed").click(function() {
+				$('#medTable tr:last').before('<tr style="font-size: 14;"><td> <fieldset class="form-group"><input type="name" class="form-control" id="name" placeholder="Enter name"></fieldset> </td><td> <fieldset class="form-group"><input type="dosage" class="form-control" id="dosage" placeholder="Enter dosage"></fieldset> </td></td><td><fieldset class="form-group"><input type="frequency" class="form-control" id="frequency" placeholder="Enter frequency"></fieldset> </td></td></tr>');
+		    });
+		});
+
+		// $(document).ready(function (e) {
+	 //      $('#currentTime').click(function(evt) {
+	 //        document.getElementById('currentTime').innerHTML = 'Current Time: 6:55AM';
+	 //         $('#alertModal').modal('show');
+  //     	});
+	</script>
+
+
+	<nav class="navbar navbar-default navbar-fixed-bottom roundbox">
+    	<div class="container">
+      		<a href="#" type="button" class="btn btn-default navbar-btn" style="width: 30%; height: 40px; font-size: 18; margin-left: 5%">Save</a>
+      		<a href="sharon_lastname.html" type="button" class="btn btn-default navbar-btn" id="saveNewMeds" style="width: 30%; height: 40px; font-size: 18;">Save and Exit</a>
+      		<button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#confirmationModal" style="width: 30%; height: 40px; font-size: 18;">Exit</button>
+  	</nav>
+
+	<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 11%;">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Confirm Navigation</h4>
+	      </div>
+	      <div class="modal-body">Are you sure you want to exit? Your changes will not be saved.</div>
+	      <div class="modal-footer">
+	        <a href="main.html" id="exitButton" type="button" class="btn btn-primary" style="width: 20%; font-size: 16;" autofocus>Exit</a>
+	      	<button type="button" class="btn btn-primary" data-dismiss="modal" style="width: 20%; font-size: 16;">Cancel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+</body>
+</html>

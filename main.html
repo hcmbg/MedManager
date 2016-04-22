@@ -1,0 +1,251 @@
+
+<html>
+<head> 
+  <meta charset="UTF-8">
+  <link href="css/main.css" rel="stylesheet" />
+  <link href="css/bootstrap.css" rel="stylesheet"/>
+  <link href='https://fonts.googleapis.com/css?family=Poppins:400,700' rel='stylesheet' type='text/css'>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+</head>
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">MedManager</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+
+        <!-- not a visible link because this is sort of a cheat so that we can get the alert -->
+          <p class="navbar-text" id="currentTime" href="#">Current Time: 6:30AM</p>
+          <p class="navbar-text">Signed in as: Katrina</p>
+          <li><a href="index.html" id="login">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <table class="table table-striped table-hover" id="patientTable">
+    <tr class="first-row"> 
+      <th>Delivery Time</th>
+      <th>Patient</th>
+      <th>Room Number</th>
+      <th>Medication</th>
+      <th style="text-align:center;">Delivered?</th>
+    </tr>
+    <tr>
+      <td>7:00AM</td>
+      <td>Sharon Lastname </br><a  href="sharon_lastname.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>
+      <td>503</td>
+      <td>Rivaroxaban</br> 200mg</td>
+      <td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box1"></td>
+    </tr>
+    <tr>
+      <td>7:30AM</td>
+      <td>Ben Bitdiddle</br><button type="button" class="btn btn-primary">View/Edit Patient Info</button></td>
+      <td>621</td>
+      <td>Medication B </br> 400mg</td>
+      <td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box2"></td>
+    </tr>
+    <tr>
+      <td>8:00AM</td>
+      <td>Pablo Sanchez</br><button type="button" class="btn btn-primary">View/Edit Patient Info</button></td>
+      <td>404</td>
+      <td>Medication C </br> 300mg</td>
+      <td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box3"></td>
+    </tr>
+  </table>
+
+  <nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+      <a href="newpatient.html" type="button" class="btn btn-default navbar-btn" style="height: 40px; font-size: 18; vertical-align: middle;">+ Add New Patient</a>
+    </div>
+  </nav>
+
+   <!-- change time alert -->
+  <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 11%; ">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="  color: #a94442; background-color: #f2dede; border-color: #ebccd1;">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Alert</h4>
+        </div>
+        <div class="modal-body">
+          <p style="font-size: 16; text-align: center;"><b>Reminder:</b> You have five minutes to deliver <span style="color: #990000;">Rivaroxaban</span> to <span style="color: #990000;">Sharon Lastname</span>.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" style="width: 20%; font-size: 16; background-color: #a94442; border-color: #ebccd1;">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- changing checkbox alert -->
+  <div class="modal fade" id="deliveredModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 11%;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
+        </div>
+        <form id="checkboxConfirmation" class="form-signin">
+        <div class="modal-body">
+          <p>Enter password to confirm action:</p>
+          <div id="errorMessage" style="color: red; display: none; padding-bottom: 10px;">Invalid password</div>
+          <input type="password" id="password" class="form-control" placeholder="Password" required autofocus>
+        </div>
+        <div class="modal-footer">
+          <button id="submitPassword" class="btn btn-primary" type="submit" name="submit" style="width: 20%; font-size: 16;">Confirm</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onClick="refreshPage()" style="width: 20%; font-size: 16;">Cancel</button>
+        </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    // changes time so that the alert shows up
+    $(document).ready(function (e) {
+      $('#currentTime').click(function(evt) {
+        document.getElementById('currentTime').innerHTML = 'Current Time: 6:55AM';
+         $('#alertModal').modal('show');
+      });
+
+      // resets at logout for testing
+      $('#login').click(function (evt) {
+        localStorage.setItem("newPatient", "false");
+        var checkboxes = document.getElementsByClassName("deliveredBox");
+        for (var i = 0; i < checkboxes.length; i++) {
+          var boxID = checkboxes[i].id.toString();
+          localStorage.setItem(boxID, "false");
+        }
+      });
+
+      $('input').on('change', function() {
+        var checkbox = this;
+        $('#deliveredModal').modal('show');
+        $('#deliveredModal').on('shown.bs.modal', function () {
+          $('#password').focus();
+        });
+
+      $('#deliveredModal').on('hidden.bs.modal', function (evt) {
+        // console.log("revert back the checkbox status");
+
+      });
+
+
+        function submitButtonHandler(evt){
+          this.removeEventListener('click', submitButtonHandler);
+          var valid = true;
+          if (document.getElementById('password').value != "med") {
+            valid = false;
+          }
+          if (!valid) {
+              $('#errorMessage').show();
+              evt.preventDefault();
+          } else {
+            localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
+            sortTable();
+          }
+        }
+        // var submitButton = document.getElementById('checkboxConfirmation');
+        var submitButton = document.getElementById('submitPassword');
+        submitButton.addEventListener('click', submitButtonHandler);
+
+        // $('submitPassword').click(function(evt){
+        //   var valid = true;
+        //   if (document.getElementById('password').value != "med") {
+        //     valid = false;
+        //   }
+        //   if (!valid) {
+        //       $('#errorMessage').show();
+        //       evt.preventDefault();
+        //   } else {
+        //     localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
+        //     sortTable();
+        //   }
+        // });
+
+
+
+        // cancel does not change localStorage but changes temporary look, 
+        // this does not work
+        $("#cancelPassword").on("click", function (evt) {
+          console.log("cancel");
+        });
+
+      });
+
+    });
+
+    // creates new table row with the added patient's information
+    var newPatient = localStorage.newPatient;
+    if (newPatient == "true") {
+      var row = document.getElementById("patientTable").insertRow(-1);
+      row.innerHTML = '<tr><td>7:30AM</td><td>Mary Jones</br><a  href="created_patient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
+    }
+
+    function refreshPage(){
+      window.location.reload();
+    } 
+
+    $(function(){
+      var checkboxes = document.getElementsByClassName("deliveredBox");
+      for (var i = 0; i < checkboxes.length; i++) {
+        var boxID = checkboxes[i].id.toString();
+        var test = localStorage.getItem(boxID) === 'true'? true: false;
+        $(checkboxes[i]).prop('checked', test || false);
+      }
+    });
+
+    function sortTable(){
+      var tbl = document.getElementById("patientTable").tBodies[0];
+      var store = [];
+      for(var i=1, len=tbl.rows.length; i<len; i++){ //start at row one to preserve header
+          var row = tbl.rows[i];
+          var checkbox = document.getElementsByClassName("deliveredBox")[i-1];
+
+          if (localStorage.getItem(checkbox.id.toString()) == 'true') {
+            var sortnr = 25;
+          } else {
+            var stringTime = row.cells[0].textContent;
+            var plusTwelve = stringTime.substring(stringTime.length-2);
+
+            stringTime = stringTime.substring(0, stringTime.length-2);
+            var splitTime = stringTime.replace(/(^:)|(:$)/g, '').split(":");
+            splitTime[0] = parseInt(splitTime[0]);
+
+            if (plusTwelve == "PM"){
+              splitTime[0] += 12;
+            }
+            var sortnr = splitTime[0] + parseInt(splitTime[1]) / 60;
+          }
+
+          if(!isNaN(sortnr)) store.push([sortnr, row]);
+      }
+      store.sort(function(x,y){
+          return x[0] - y[0];
+      });
+      for(var i=0, len=store.length; i<len; i++){
+          tbl.appendChild(store[i][1]);
+      }
+      store = null;
+    }
+    sortTable();
+
+  </script>
+
+</body>
+
+</html>
+
