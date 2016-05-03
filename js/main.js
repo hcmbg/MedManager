@@ -26,4 +26,27 @@ $(document).ready( function() {
     $('#saveNewMeds').click(function (e) {
       localStorage.setItem("newMeds", "true");
     });
+
+    function getTime() {
+
+      var today = new Date();
+      var h = ('0'+today.getHours()).slice(-2);
+      var m = ('0'+today.getMinutes()).slice(-2);
+      var now = h+":"+m;
+
+      return now;
+    }
+
+    function setTime() {
+      console.log("sadfsA");
+      var currentTime = getTime();
+      if (parseInt(currentTime.substring(0, 2)) > 12) {
+        currentTime = String(parseInt(currentTime.substring(0, 2)) - 12) + currentTime.substring(2) + "PM";
+      } else {
+        currentTime += "AM";
+      }
+      document.getElementById('currentTime').innerHTML = 'Current Time: ' + currentTime;
+      var t = setTimeout(setTime, 3000);
+    }
+    setTime();
 });

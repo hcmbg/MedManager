@@ -26,7 +26,7 @@
         <ul class="nav navbar-nav navbar-right">
 
           <!-- not a visible link because this is sort of a cheat so that we can get the alert -->
-          <p class="navbar-text" id="currentTime" href="#">Current Time: 6:30AM</p>
+          <p class="navbar-text" id="currentTime" href="#"></p>
           <p class="navbar-text">Signed in as: Katrina</p>
           <li><a href="index.html" id="login">Logout</a></li>
         </ul>
@@ -368,28 +368,6 @@
       }
     }
     deliveryAlert();
-
-    function getTime() {
-
-      var today = new Date();
-      var h = ('0'+today.getHours()).slice(-2);
-      var m = ('0'+today.getMinutes()).slice(-2);
-      var now = h+":"+m;
-
-      return now;
-    }
-
-    function setTime() {
-      var currentTime = getTime();
-      if (parseInt(currentTime.substring(0, 2)) > 12) {
-        currentTime = String(parseInt(currentTime.substring(0, 2)) - 12) + currentTime.substring(2) + "PM";
-      } else {
-        currentTime += "AM";
-      }
-      document.getElementById('currentTime').innerHTML = 'Current Time: ' + currentTime;
-      var t = setTimeout(setTime, 3000);
-    }
-    setTime();
 
     </script>
 
