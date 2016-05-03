@@ -42,43 +42,48 @@
       <th>Medication</th>
       <th style="text-align:left;">Delivered?</th>
     </tr>
+
     <tr>
       <td>07:00AM</td>
       <td>Sharon Lastname </br><a  href="sharon_lastname.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>
       <td>503</td>
       <td>Rivaroxaban</br> <span style="font-style: italic;">200mg</span></td>
-      <!-- <td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box1"></td> -->
-      <td > <form id ="dosageForm">
-
-        <input type="dosage" class="form-control" id="dosageConfirm1" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;">
-      </div>
-      <div id="errorMessage" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div>
-      <button type="submit" class="btn btn-success" id="confirm1">Confirm</button><input type="checkbox" class="deliveredBox" id="box1"></form></td>
+      <td > 
+        <div id="errorMessage1" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage </div> 
+        <form id ="dosageForm">
+          <input type="dosage" class="form-control" id="dosageConfirm1" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;">
+           <button type="submit" class="btn btn-success" id="confirm1">Confirm</button>
+           <input type="checkbox" class="deliveredBox" id="box1" style= "display: none;">
+         </form>
+       </td>
     </tr>
+    
     <tr>
       <td>07:30AM</td>
-      <td>Ben Bitdiddle</br><button type="button" class="btn btn-primary">View/Edit Patient Info</button></td>
+      <td>Ben Bitdiddle </br><a href="ben_bitdiddle.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>
       <td>621</td>
-      <td>MedicationB </br><span style="font-style: italic;"> 400mg</span><!-- </td>
-      <td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box2"></td> -->
-      <td > <div class="form-group">
-
-        <input type="dosage" class="form-control" id="dosageConfirm2" placeholder="Dosage Delivered" required style="width: 55%; font-size: 12;">
-      </div>
-      <div><button type="submit" class="btn btn-success" id="confirm2">Confirm</button><input type="checkbox" class="deliveredBox" id="box2"> </div></td>
+      <td>MedicationB </br><span style="font-style: italic;">400mg</span></td>
+      <td >
+        <div id="errorMessage2" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div>
+        <form class="dosageForm">
+          <input type="dosage" class="form-control" id="dosageConfirm2" placeholder="Dosage Delivered" required style="width: 55%; font-size: 12;">
+          <button type="submit" class="btn btn-success" id="confirm2">Confirm</button><input type="checkbox" class="deliveredBox" id="box2" style = "display: none;"> 
+        </form>
+      </td>
     </tr>
+    
     <tr>
       <td>08:00AM</td>
-      <td>Pablo Sanchez</br><button type="button" class="btn btn-primary">View/Edit Patient Info</button></td>
+      <td>Pablo Sanchez </br><button type="button" class="btn btn-primary">View/Edit Patient Info</button></td>
       <td>404</td>
-
-      <td>MedicationBC </br><span style="font-style: italic;"> 300mg</span></td>
-      <!-- <td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box3"></td> -->
-      <td > <div class="form-group">
-        <div><input type="dosage" class="form-control" id="dosageConfirm3" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"></div>
-         <div> <button type="submit" class="btn btn-success" id="confirm3">Confirm</button><input type="checkbox" class="deliveredBox" id="box3"></div>
-
-      </div></td>
+      <td>MedicationC </br><span style="font-style: italic;">300mg</span></td>
+      <td > 
+        <div id="errorMessage3" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div>
+        <form class="dosageForm">
+          <input type="dosage" class="form-control" id="dosageConfirm3" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"></div>
+          <button type="submit" class="btn btn-success" id="confirm3">Confirm</button><input type="checkbox" class="deliveredBox" id="box3" style = "display: none;">
+        </form>
+      </td>
     </tr>
   </table>
 
@@ -148,63 +153,82 @@
         }
       });
 
-      $('input').on('change', function() {
-        var checkbox = this;
-        // $('#deliveredModal').modal('show');
-        // $('#deliveredModal').on('shown.bs.modal', function () {
-        //   $('#password').focus();
-         });
+      // $('input').on('change', function() {
+      //   var checkbox = this;
+      //   // $('#deliveredModal').modal('show');
+      //   // $('#deliveredModal').on('shown.bs.modal', function () {
+      //   //   $('#password').focus();
+      // });
 
-$('#deliveredModal').on('hidden.bs.modal', function (evt) {
-        // console.log("revert back the checkbox status");
+      // $('#deliveredModal').on('hidden.bs.modal', function (evt) {
+      //   // console.log("revert back the checkbox status");
 
-      });
+      // });
 
 
-function submitButtonHandler(evt){
-  this.removeEventListener('click', submitButtonHandler);
-  var valid = true;
-  if (document.getElementById('password').value != "med") {
-    valid = false;
-  }
-  if (!valid) {
-    $('#errorMessage').show();
-    evt.preventDefault();
-  } else {
-    localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
-    sortTable();
-  }
-}
+      function submitButtonHandler(evt){
+        this.removeEventListener('click', submitButtonHandler);
+        var valid = true;
+        if (document.getElementById('password').value != "med") {
+          valid = false;
+        }
+        if (!valid) {
+          $('#errorMessage').show();
+          evt.preventDefault();
+        } else {
+          localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
+          sortTable();
+        }
+      }
 
-function confirmationButtonHandler(evt){
-  var valid = true;
-  if (document.getElementById('dosageConfirm1').value != "200"){
-      valid = false;
-  }
-  if (!valid){
-    evt.preventDefault();
-    console.log(valid)
-    $('#errorMessage').show();
-    evt.preventDefault();
-    document.getElementById('dosageForm').reset();
-    }
-  else{
-    $('#errorMessage').hide();
-    var checkbox = document.getElementById('box1');
-    localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
-    console.log(valid);
-    sortTable();
-    evt.preventDefault();
-  }
-    
+      function confirmationButtonHandler(evt){
+        var valid = true;
+        var button = document.getElementById(evt.target.id);
+        var rowIndex = button.parentNode.parentNode.parentNode.rowIndex;
+        var table = document.getElementById('patientTable');
+        var meds = table.rows[rowIndex].cells[3].textContent.split(' ')[1];
+        var form = table.rows[rowIndex].cells[4].children[1].children[0];
+        var errormessage = table.rows[rowIndex].cells[4].children[0].id;
+        var checkbox = table.rows[rowIndex].cells[4].children[1].children[2]
+        console.log(checkbox);
+        meds = meds.substring(0, meds.length - 2);
   
-}
+        if (form.value != meds){
+          valid = false;
+        }
+
+        if (!valid){
+          evt.preventDefault();
+          console.log(valid)
+          $('#'+errormessage).show();
+          evt.preventDefault();
+          form.style.borderColor = 'red';
+        }
+
+        else{
+          $('#'+errormessage).hide();
+          localStorage.setItem(checkbox.id.toString(), "true");
+          $(checkbox).is(":checked");
+          console.log(localStorage.getItem(checkbox.id.toString()) == 'true');
+          sortTable();
+          evt.preventDefault();
+          form.style.backgroundColor = '#80ffaa';
+          form.style.borderColor = '#80ffaa';
+          form.disabled = 'disabled';
+          button.disabled= 'disabled';
+        }
+
+        
+      }
         // var submitButton = document.getElementById('checkboxConfirmation');
         var submitButton = document.getElementById('submitPassword');
         submitButton.addEventListener('click', submitButtonHandler);
         var confirmButton = document.getElementById('confirm1');
         confirmButton.addEventListener('click', confirmationButtonHandler);
-        
+        var confirmButton2 = document.getElementById('confirm2');
+        confirmButton2.addEventListener('click', confirmationButtonHandler);
+        var confirmButton3 = document.getElementById('confirm3');
+        confirmButton3.addEventListener('click', confirmationButtonHandler);
 
 
         // $('submitPassword').click(function(evt){
@@ -229,9 +253,9 @@ function confirmationButtonHandler(evt){
           console.log("cancel");
         });
 
-      
 
-});
+
+      });
 
     // creates new table row with the added patient's information
     var newPatient = localStorage.newPatient;
@@ -377,7 +401,7 @@ function confirmationButtonHandler(evt){
     setTime();
     //window.setInterval(setTime(), 3000);
 
-  </script>
+    </script>
 
   </body>
 
