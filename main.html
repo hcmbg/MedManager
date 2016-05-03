@@ -72,7 +72,7 @@
       <td>Pablo Sanchez</br><button type="button" class="btn btn-primary">View/Edit Patient Info</button></td>
       <td>404</td>
 
-      <td>MedicationBC </br><span style="font-style: italic;"> 300mg</span></td>
+      <td>MedicationC</br><span style="font-style: italic;"> 300mg</span></td>
       <!-- <td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box3"></td> -->
       <td > <div class="form-group">
         <div><input type="dosage" class="form-control" id="dosageConfirm3" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"></div>
@@ -137,6 +137,7 @@
       //   document.getElementById('currentTime').innerHTML = 'Current Time: 6:55AM';
       //    $('#alertModal').modal('show');
       // });
+      window.setInterval(setTime(), 3000);
 
       // resets at logout for testing
       $('#login').click(function (evt) {
@@ -155,50 +156,50 @@
         //   $('#password').focus();
          });
 
-$('#deliveredModal').on('hidden.bs.modal', function (evt) {
-        // console.log("revert back the checkbox status");
+      $('#deliveredModal').on('hidden.bs.modal', function (evt) {
+              // console.log("revert back the checkbox status");
 
-      });
+            });
 
 
-function submitButtonHandler(evt){
-  this.removeEventListener('click', submitButtonHandler);
-  var valid = true;
-  if (document.getElementById('password').value != "med") {
-    valid = false;
-  }
-  if (!valid) {
-    $('#errorMessage').show();
-    evt.preventDefault();
-  } else {
-    localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
-    sortTable();
-  }
-}
+      function submitButtonHandler(evt){
+        this.removeEventListener('click', submitButtonHandler);
+        var valid = true;
+        if (document.getElementById('password').value != "med") {
+          valid = false;
+        }
+        if (!valid) {
+          $('#errorMessage').show();
+          evt.preventDefault();
+        } else {
+          localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
+          sortTable();
+        }
+      }
 
-function confirmationButtonHandler(evt){
-  var valid = true;
-  if (document.getElementById('dosageConfirm1').value != "200"){
-      valid = false;
-  }
-  if (!valid){
-    evt.preventDefault();
-    console.log(valid)
-    $('#errorMessage').show();
-    evt.preventDefault();
-    document.getElementById('dosageForm').reset();
-    }
-  else{
-    $('#errorMessage').hide();
-    var checkbox = document.getElementById('box1');
-    localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
-    console.log(valid);
-    sortTable();
-    evt.preventDefault();
-  }
-    
-  
-}
+      function confirmationButtonHandler(evt){
+        var valid = true;
+        if (document.getElementById('dosageConfirm1').value != "200"){
+            valid = false;
+        }
+        if (!valid){
+          evt.preventDefault();
+          console.log(valid)
+          $('#errorMessage').show();
+          evt.preventDefault();
+          document.getElementById('dosageForm').reset();
+          }
+        else{
+          $('#errorMessage').hide();
+          var checkbox = document.getElementById('box1');
+          localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
+          console.log(valid);
+          sortTable();
+          evt.preventDefault();
+        }
+          
+        
+      }
         // var submitButton = document.getElementById('checkboxConfirmation');
         var submitButton = document.getElementById('submitPassword');
         submitButton.addEventListener('click', submitButtonHandler);
