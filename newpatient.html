@@ -37,7 +37,8 @@
 
 	</fieldset>
 	<div class="form-group">
-	    <input type="room" class="form-control" id="room" placeholder="Room Number" style="height: 50px; font-size: 18; margin-left: -125px;">
+		<label for="room" style = "font-size: 20; font-weight: normal; margin-left: -150px; vertical-align: bottom; color: #777;">Room:</label>
+	    <input type="room" class="form-control" id="room" placeholder="Enter Room #" style="height: 50px; font-size: 18; vertical-align: bottom;">
 	  </div>
 
 </form>
@@ -46,7 +47,7 @@
 			<td valign = "top" style="width: 33%; padding-right: 25px;">
 
 				<div style="text-align:center; padding-bottom: 13px;">
-					<img src="photos/profile.png" style="height: 200px; width: auto;" id ="patientPhoto">
+					<img src="photos/profile.png" style="height: 150px; width: auto;" id ="patientPhoto">
 					<button type="button" id="uploadPhoto" class="btn btn-default navbar-btn" onclick = "changeImage()">Upload Photo</button>
             		<script>
 						function changeImage() {
@@ -66,10 +67,28 @@
 						<h3 class="panel-title">Patient Information</h3>
 					</div>
 					<div class="panel-body" style="font-size: 14;">
-						<fieldset class="form-group">
-
-							<textarea class="form-control" id="PatientInfo" rows="5" placeholder="Enter patient information"></textarea>
-						</fieldset>
+						<form class = "form-inline">
+							<div class="form-group">
+								<label for "DOB" style="font-weight: normal; font-size: 14;">DOB:</label>
+								<input type ="DOB" class ="form-control" id ="DOB" placeholder="mm/dd/yyyy" style= "font-size: 14;">
+							</div>
+							<div class="form-group">
+								<label for "height" style="font-weight: normal; font-size: 14;">Height:</label>
+								<input type ="height" class ="form-control" id ="height" placeholder="ft' in''" style= "font-size: 14; margin-top: 7px;">
+							</div>
+							<div class="form-group">
+								<label for "weight" style="font-weight: normal; font-size: 14;">Weight:</label>
+								<input type ="weight" class ="form-control" id ="weight" placeholder="xxx lb" style= "font-size: 14; margin-top: 7px;">
+							</div>
+							<div class="form-group">
+								<label for "address" style="font-weight: normal; font-size: 14;">Address:</label>
+								<input type ="address" class ="form-control" id ="address" placeholder="Enter address" style= "font-size: 14; margin-top: 7px;">
+							</div>
+							<div class="form-group">
+								<label for "allergies" style="font-weight: normal; font-size: 14;">Allergies:</label>
+								<input type ="allergies" class ="form-control" id ="allergies" placeholder="Enter allergies" style= "font-size: 14; margin-top: 7px;">
+							</div>
+						</form>
 					</div>
 				</div>
 			</td>
