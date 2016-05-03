@@ -40,7 +40,12 @@ $(document).ready( function() {
     function setTime() {
       console.log("sadfsA");
       var currentTime = getTime();
-      if (parseInt(currentTime.substring(0, 2)) > 12) {
+      
+      if (currentTime.substring(0, 2) == 12) { // 12 noon
+        currentTime = "12" + currentTime.substring(2) + "PM";
+      } else if (currentTime.substring(0, 2) == 24) { // 12 midnight
+        currentTime = "12" + currentTime.substring(2) + "AM";
+      } else if (parseInt(currentTime.substring(0, 2)) > 12) {
         currentTime = String(parseInt(currentTime.substring(0, 2)) - 12) + currentTime.substring(2) + "PM";
       } else {
         currentTime += "AM";
