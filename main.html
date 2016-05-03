@@ -142,6 +142,7 @@
       //   document.getElementById('currentTime').innerHTML = 'Current Time: 6:55AM';
       //    $('#alertModal').modal('show');
       // });
+      window.setInterval(setTime(), 3000);
 
       // resets at logout for testing
       $('#login').click(function (evt) {
@@ -164,7 +165,6 @@
       //   // console.log("revert back the checkbox status");
 
       // });
-
 
       function submitButtonHandler(evt){
         this.removeEventListener('click', submitButtonHandler);
@@ -217,7 +217,6 @@
           form.disabled = 'disabled';
           button.disabled= 'disabled';
         }
-
         
       }
         // var submitButton = document.getElementById('checkboxConfirmation');
@@ -262,6 +261,7 @@
     if (newPatient == "true") {
       var row = document.getElementById("patientTable").insertRow(-1);
       row.innerHTML = '<tr><td>7:30AM</td><td>Mary Jones</br><a  href="created_patient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
+      // should be based on actual inputs
     }
 
     function refreshPage(){
@@ -329,7 +329,6 @@
       if(firstDelivery.substring(firstDelivery.length-2) == "PM") { //change to pm 
         hours = parseInt(hours) + 12;
         hours = hours.toString();
-        console.log(hours.length);
       } 
 
       if (hours.length == 1){
@@ -337,7 +336,6 @@
       }
 
       var delivery = hours + ":" + minutes;
-      console.log(delivery);
 
       for(var i=2, len=tbl.rows.length; i<len; i++){ //start at row one to preserve header
         var row = tbl.rows[i];
@@ -347,25 +345,17 @@
         }
       }
 
-      console.log(deliveryRows);
-
       var currentTime = getTime();
-      console.log("time: " + currentTime);
 
-      console.log(currentTime); 
       //delivery = currentTime;
       if (currentTime == delivery) {
-        //$('#alertModal').modal('show');
         var alert = document.getElementById('alertModal');
         var text = document.getElementById('modalText');
-        //console.log(text.textContent);
         var modalStart = '<p id = "modalText" style="font-size: 16; text-align: left;"><b>Reminder:</b> You have ten minutes to deliver:';
         var modalEnd = '</p>';
         var modalInner = '<span style="color: #990000;">';
         var modalMiddle = '';
         for (var i = 0; i < deliveryRows.length; i++) {
-          console.log("i: " + i);
-          console.log(tbl.rows[deliveryRows[i]]);
           var name = tbl.rows[deliveryRows[i]].cells[1].textContent;
           var med = tbl.rows[deliveryRows[i]].cells[3].textContent.split(' ')[0];
 
@@ -389,17 +379,15 @@
 
     function setTime() {
       var currentTime = getTime();
-      console.log(parseInt(currentTime.substring(0, 2)) - 12);
       if (parseInt(currentTime.substring(0, 2)) > 12) {
         currentTime = String(parseInt(currentTime.substring(0, 2)) - 12) + currentTime.substring(2) + "PM";
       } else {
         currentTime += "AM";
       }
       document.getElementById('currentTime').innerHTML = 'Current Time: ' + currentTime;
-      console.log("ran");
+      var t = setTimeout(setTime, 3000);
     }
     setTime();
-    //window.setInterval(setTime(), 3000);
 
     </script>
 
