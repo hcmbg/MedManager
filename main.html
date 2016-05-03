@@ -142,7 +142,6 @@
       //   document.getElementById('currentTime').innerHTML = 'Current Time: 6:55AM';
       //    $('#alertModal').modal('show');
       // });
-      window.setInterval(setTime(), 3000);
 
       // resets at logout for testing
       $('#login').click(function (evt) {
@@ -368,6 +367,16 @@
       }
     }
     deliveryAlert();
+
+    function getTime() {
+
+      var today = new Date();
+      var h = ('0'+today.getHours()).slice(-2);
+      var m = ('0'+today.getMinutes()).slice(-2);
+      var now = h+":"+m;
+
+      return now;
+    }
 
     </script>
 
