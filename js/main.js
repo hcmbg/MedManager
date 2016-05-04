@@ -35,10 +35,11 @@ $(document).ready( function() {
          '<td>' + patient.room + '</td> <td>' + med.medName + '</br> <span style="font-style: italic;">' + med.dosage + '</span></td>' +
          '<td> <form id ="dosageForm"><input type="dosage" class="form-control" id="dosageConfirm' + medIndex + '" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" id="confirm' + medIndex + '">Confirm</button><input type="checkbox" class="deliveredBox" id="box' + medIndex + '" style="display:none"></form></td> </tr>';
          $(tblRow).appendTo("#patientTable");
+         $
        });
      });
 
-function submitButtonHandler(evt){
+    function submitButtonHandler(evt){
         this.removeEventListener('click', submitButtonHandler);
         var valid = true;
         if (document.getElementById('password').value != "med") {
@@ -53,43 +54,33 @@ function submitButtonHandler(evt){
         }
       }
 
-function confirmationButtonHandler(evt){
-  var valid = true;
-  if (document.getElementById('dosageConfirm1').value != "200"){
-      valid = false;
-  }
-  if (!valid){
-    evt.preventDefault();
-    console.log(valid)
-    $('#errorMessage').show();
-    evt.preventDefault();
-    document.getElementById('dosageForm').reset();
+    function confirmationButtonHandler(evt){
+      var valid = true;
+      if (document.getElementById('dosageConfirm1').value != "200"){
+          valid = false;
+      }
+      if (!valid){
+        evt.preventDefault();
+        console.log(valid)
+        $('#errorMessage').show();
+        evt.preventDefault();
+        document.getElementById('dosageForm').reset();
+        }
+      else{
+        $('#errorMessage').hide();
+        var checkbox = document.getElementById('box1');
+        localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
+        console.log(valid);
+        sortTable();
+        evt.preventDefault();
+      }
     }
-  else{
-    $('#errorMessage').hide();
-    var checkbox = document.getElementById('box1');
-    localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
-    console.log(valid);
-    sortTable();
-    evt.preventDefault();
-  }
-    
-  
-}
+
     // var submitButton = document.getElementById('checkboxConfirmation');
     var submitButton = document.getElementById('submitPassword');
     submitButton.addEventListener('click', submitButtonHandler);
     var confirmButton = document.getElementById('confirm1');
     confirmButton.addEventListener('click', confirmationButtonHandler);
-
-
-
-    // cancel does not change localStorage but changes temporary look, 
-    // this does not work
-    $("#cancelPassword").on("click", function (evt) {
-      console.log("cancel");
-    });
-
 
     // creates new table row with the added patient's information
     var newPatient = localStorage.newPatient;
@@ -106,8 +97,6 @@ function confirmationButtonHandler(evt){
         $(checkboxes[i]).prop('checked', test || false);
       }
     });
-
-
 
     // creates new table row with the added patient's information
     var newPatient = localStorage.newPatient;
@@ -163,36 +152,6 @@ function confirmationButtonHandler(evt){
     }
     sortTable();
 
-    function timeToDecimal(stringTime){
-      var plusTwelve = stringTime.substring(stringTime.length-2);
-
-      stringTime = stringTime.substring(0, stringTime.length-2);
-      var splitTime = stringTime.replace(/(^:)|(:$)/g, '').split(":");
-      splitTime[0] = parseInt(splitTime[0]);
-
-      if (plusTwelve == "PM" && splitTime[0] != 12){
-        splitTime[0] += 12;
-      } else if (plusTwelve == "AM" && splitTime[0] == 12) {
-        splitTime[0] = 24;
-      }
-
-      var sortnr = splitTime[0] + parseInt(splitTime[1]) / 60
-      return sortnr;
-    }
-
-    function timeToString(currentTime) {
-      if (currentTime.substring(0, 2) == 12) { // 12 noon
-        currentTime = "12" + currentTime.substring(2) + "PM";
-      } else if (currentTime.substring(0, 2) == 24) { // 12 midnight
-        currentTime = "12" + currentTime.substring(2) + "AM";
-      } else if (parseInt(currentTime.substring(0, 2)) > 12) {
-        currentTime = String(parseInt(currentTime.substring(0, 2)) - 12) + currentTime.substring(2) + "PM";
-      } else {
-        currentTime += "AM";
-      }
-      return currentTime;
-    }
-
     function deliveryAlert(){
       var tbl = document.getElementById("patientTable").tBodies[0];
       var deliveryRows = [1];
@@ -228,7 +187,6 @@ function confirmationButtonHandler(evt){
 
       var currentTime = getTime();
 
-      //delivery = currentTime;
       if (currentTime == delivery) {
         var alert = document.getElementById('alertModal');
         var text = document.getElementById('modalText');
@@ -248,24 +206,56 @@ function confirmationButtonHandler(evt){
     }
     deliveryAlert();
 
-    function getTime() {
+    function timeToDecimal(stringTime){
+      var plusTwelve = stringTime.substring(stringTime.length-2);
 
+      stringTime = stringTime.substring(0, stringTime.length-2);
+      var splitTime = stringTime.replace(/(^:)|(:$)/g, '').split(":");
+      splitTime[0] = parseInt(splitTime[0]);
+
+      if (plusTwelve == "PM" && splitTime[0] != 12){
+        splitTime[0] += 12;
+      } else if (plusTwelve == "AM" && splitTime[0] == 12) {
+        splitTime[0] = 24;
+      }
+
+      var sortnr = splitTime[0] + parseInt(splitTime[1]) / 60
+      return sortnr;
+    }
+
+    function timeToString(currentTime) {
+      if (currentTime.substring(0, 2) == 12) { // 12 noon
+        currentTime = "12" + currentTime.substring(2) + "PM";
+      } else if (currentTime.substring(0, 2) == 0) { // 12 midnight
+        currentTime = "12" + currentTime.substring(2) + "AM";
+      } else if (parseInt(currentTime.substring(0, 2)) > 12) {
+        currentTime = String(parseInt(currentTime.substring(0, 2)) - 12) + currentTime.substring(2) + "PM";
+      } else {
+        currentTime += "AM";
+      }
+      return currentTime;
+    }
+
+    function getTime() {
       var today = new Date();
       var h = ('0'+today.getHours()).slice(-2);
       var m = ('0'+today.getMinutes()).slice(-2);
       var now = h+":"+m;
-
       return now;
     }
 
     function setTime() {
       var currentTime = getTime();
       currentTime = timeToString(currentTime);
+      console.log("string: " + currentTime);
       document.getElementById('currentTime').innerHTML = 'Current Time: ' + currentTime;
-      console.log("ran");
     }
-    var t = setTimeout(setTime, 3000);
+    var t = setInterval(setTime, 3000);
     setTime();
+
+    function incrementTime() {
+
+    }
 
 });
 
@@ -279,13 +269,15 @@ function confirmationButtonHandler(evt){
                     "medName" : "Rivaroxaban", \
                     "dosage" : "200mg", \
                     "frequency" : "Once daily", \
-                    "time" : "07:00AM" \
+                    "time" : "07:00AM", \
+                    "lastAdmin": "11:30PM 5/2/16" \
                 }, \
                 { \
                     "medName" : "Nitroglycerin", \
                     "dosage" : "300mg", \
                     "frequency" : "Every 2-4 hours, daily", \
-                    "time" : "11:00AM" \
+                    "time" : "11:00AM", \
+                    "lastAdmin": "05:00AM 5/2/16" \
                 } \
             ], \
             "dob" : "11/3/1986", \
@@ -303,7 +295,8 @@ function confirmationButtonHandler(evt){
                     "medName" : "MedicationB", \
                     "dosage" : "400mg", \
                     "frequency" : "Hourly", \
-                    "time" : "07:30AM" \
+                    "time" : "07:30AM", \
+                    "lastAdmin": "08:00AM 5/1/16" \
                 } \
             ], \
             "dob" : "06/06/1966", \
@@ -321,7 +314,8 @@ function confirmationButtonHandler(evt){
                     "medName" : "MedicationC", \
                     "dosage" : "300mg", \
                     "frequency" : "Once daily", \
-                    "time" : "08:00AM" \
+                    "time" : "08:00AM", \
+                    "lastAdmin": "04:00PM 5/2/16" \
                 } \
             ], \
             "dob" : "12/31/1999", \
