@@ -31,7 +31,7 @@
 		</div>
 	</nav>
 
-	<a href="edit_sharon.html" type="button" class="btn btn-primary" style="float:right; margin-right: 1%;">Edit</a>
+	<a type="button" class="btn btn-primary" id = "edit" style="float:right; margin-right: 1%;">Edit</a>
 	<div class="page-header" style="margin: 0px;">
   		<h1 style:"margin-left: 50px;"><span id="name"></span> <small>&nbsp; Room: <span id = "room"> </span></small></h1>
 	</div>
@@ -94,6 +94,9 @@
 	      	$('#login').click(function (evt) {
 		        localStorage.setItem("newMeds", "false");
       		});
+
+            $("#edit").attr("href","edit_sharon.html?id="+patientIndex);
+        })
       		var patientIndex = window.location.search.substring(window.location.search.indexOf("=")+1);
       		var patientData = $.parseJSON(localStorage.getItem("data")).patients[patientIndex]
       		$("#name").html(patientData.name)
@@ -107,9 +110,7 @@
       		$.each(patientData.meds, function(index, med) {
       			var row = '<tr style="font-size: 14;"><td>'+med.medName+'</td><td>'+med.dosage+'</td><td>'+med.frequency+'</td><td>5:00AM 4/8/16</td></tr>'
       			$("#medTable").append(row)
-      		})
-
-	     });
+      		});
 
      //  	var newMeds = localStorage.newMeds;
 	    // if (newMeds == "true") {
