@@ -157,10 +157,11 @@
 			// go through cells 
 			for (var i=1; i<table.rows.length; i++) { 
 				var tableRow = table.rows[i]; var rowData = {}; 
-			for (var j=0; j<tableRow.cells.length; j++) { 
-				rowData[ headers[j] ] = tableRow.cells[j].innerHTML; 
-			} 
-			medData.push(rowData); 
+				for (var j=0; j<tableRow.cells.length; j++) { 
+					rowData[ headers[j] ] = tableRow.cells[j].innerHTML; 
+				} 
+				rowData["time"] = "<<<SARON>>"
+				medData.push(rowData); 
 			} 
 			data.patients.push(
 				{
@@ -176,6 +177,7 @@
 				});
 			console.log(data)
 			localStorage.setItem("data", JSON.stringify(data))
+			localStorage.setItem("modified", true);
 
 		}
 	</script>
