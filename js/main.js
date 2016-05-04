@@ -57,17 +57,20 @@ $(document).ready( function() {
              $('#errorMessage'+patientIndex+medIndex).hide();
              localStorage.setItem("box"+patientIndex+medIndex, "true");
              $("#box"+patientIndex+medIndex).is(":checked");
-             console.log(localStorage.getItem("box"+patientIndex+medIndex) == 'true');
+             
              sortTable();
              evt.preventDefault();
              $("#dosageConfirm"+patientIndex+medIndex).css("background-color", "#80ffaa");
              $("#dosageConfirm"+patientIndex+medIndex).css("border-color", "#80ffaa");
-             $("#dosageConfirm"+patientIndex+medIndex).disabled = 'disabled';
-             $("#confirm"+patientIndex+medIndex).disabled= 'disabled';
+             $("#dosageConfirm"+patientIndex+medIndex).attr('disabled', "disabled");
+             $("#confirm"+patientIndex+medIndex).attr('disabled', "disabled");
+             localStorage.setItem("dosage"+patientIndex+medIndex, parseInt(med.dosage).toString());
+
             }
          });
        });
      });
+    colorBoxes();
 
     function submitButtonHandler(evt){
         this.removeEventListener('click', submitButtonHandler);
@@ -284,7 +287,43 @@ $(document).ready( function() {
     function incrementTime() {
 
     }
+    function colorBoxes(){
+      // for(var medIndex=1, len=data.patients.length; medIndex<len; medIndex++){ //start at row one to preserve header
+      //   for (var patientIndex=0, len=data.patients[medIndex].meds.length; patientIndex<len; patientIndex++){
+      //     var checkboxID = "box"+patientIndex+medIndex; 
+      //     var checkbox = document.getElementById(checkboxID);
+      //     console.log(checkbox);
+      //     if (checkbox != null){
+      //       if (localStorage.getItem(checkbox.id.toString()) == 'true'){
+      //         console.log("yes");
+      //       }
+      //       else{
+      //         console.log("no");
+      //       }
 
+      //     }
+      //   }
+      // }
+      var tbl = document.getElementById("patientTable").tBodies[0];
+      for(var i=1, len=tbl.rows.length; i<len; i++){ //start at row one to preserve header
+        var row = tbl.rows[i];
+        var checkbox = document.getElementsByClassName("deliveredBox")[i-1];
+        if (localStorage.getItem(checkbox.id.toString()) == 'true'){
+          var len = checkbox.id.toString().length;
+
+          var medIndex = checkbox.id.toString().substring(len-1);
+          var patientIndex = checkbox.id.toString().substring(len-2,len-1);
+          $("#dosageConfirm"+patientIndex+medIndex).css("background-color", "#80ffaa");
+          $("#dosageConfirm"+patientIndex+medIndex).css("border-color", "#80ffaa");
+          $("#dosageConfirm"+patientIndex+medIndex).attr('disabled', "disabled");
+          $("#confirm"+patientIndex+medIndex).attr('disabled', "disabled");
+
+          var dosage = localStorage.getItem("dosage"+patientIndex+medIndex);
+          $("#dosageConfirm"+patientIndex+medIndex).attr("value", dosage);
+
+        }
+    }
+  }
 });
 
   var patientData = '{ "patients": \
