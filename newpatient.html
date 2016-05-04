@@ -160,7 +160,7 @@
 				for (var j=0; j<tableRow.cells.length; j++) { 
 					rowData[ headers[j] ] = tableRow.cells[j].innerHTML; 
 				} 
-				rowData["time"] = "<<<SARON>>"
+				rowData["time"] = randomTime();
 				medData.push(rowData); 
 			} 
 			data.patients.push(
@@ -180,6 +180,27 @@
 			localStorage.setItem("modified", true);
 
 		}
+
+		function randomTime() {
+			var hours = Math.floor((Math.random() * 12) + 1);
+			var minutes = Math.floor(Math.random() * 4) * 15;
+			var amPM = Math.round(Math.random());
+			if (String(hours).length == 1) {
+				hours = "0" + hours;
+			}
+			if (String(minutes).length == 1) {
+				minutes = "0" + minutes;
+			}
+			if (amPM == 0) {
+				amPM = "AM";
+			} else {
+				amPM = "PM";
+			}
+			var time = hours + ":" + minutes + amPM;
+			return time;
+		}
+		randomTime();
+
 	</script>
 
 
