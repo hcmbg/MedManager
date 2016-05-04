@@ -113,7 +113,7 @@ function confirmationButtonHandler(evt){
     var newPatient = localStorage.newPatient;
     if (newPatient == "true") {
       var row = document.getElementById("patientTable").insertRow(-1);
-      row.innerHTML = '<tr><td>07:30AM</td><td>Mary Jones</br><a  href="created_patient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
+      row.innerHTML = '<tr><td>12:00PM</td><td>Mary Jones</br><a  href="created_patient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
       // should be based on actual inputs
     }
 
@@ -130,7 +130,11 @@ function confirmationButtonHandler(evt){
       }
     });
 
-    function sortTable(){ // should also sort relative to current time
+    function sortTable(){ 
+      var currentTime = getTime();
+      currentTime = timeToString(currentTime);
+      currentTime = timeToDecimal(currentTime);
+
       var tbl = document.getElementById("patientTable").tBodies[0];
       var store = [];
       for(var i=1, len=tbl.rows.length; i<len; i++){ //start at row one to preserve header
@@ -141,23 +145,15 @@ function confirmationButtonHandler(evt){
           var sortnr = 25;
         } else {
           var stringTime = row.cells[0].textContent;
-          var plusTwelve = stringTime.substring(stringTime.length-2);
-
-          stringTime = stringTime.substring(0, stringTime.length-2);
-          var splitTime = stringTime.replace(/(^:)|(:$)/g, '').split(":");
-          splitTime[0] = parseInt(splitTime[0]);
-
-          if (plusTwelve == "PM"){
-            splitTime[0] += 12;
+          var sortnr = timeToDecimal(stringTime) - parseInt(currentTime);
+          if (sortnr < 0) {
+            sortnr += 24;
           }
-          var sortnr = splitTime[0] + parseInt(splitTime[1]) / 60;
         }
 
         if(!isNaN(sortnr)) store.push([sortnr, row]);
       }
       store.sort(function(x,y){
-        console.log("x: " + x[0]);
-        console.log("y: " + y[0]);
         return x[0] - y[0];
       });
       for(var i=0, len=store.length; i<len; i++){
@@ -166,6 +162,36 @@ function confirmationButtonHandler(evt){
       store = null;
     }
     sortTable();
+
+    function timeToDecimal(stringTime){
+      var plusTwelve = stringTime.substring(stringTime.length-2);
+
+      stringTime = stringTime.substring(0, stringTime.length-2);
+      var splitTime = stringTime.replace(/(^:)|(:$)/g, '').split(":");
+      splitTime[0] = parseInt(splitTime[0]);
+
+      if (plusTwelve == "PM" && splitTime[0] != 12){
+        splitTime[0] += 12;
+      } else if (plusTwelve == "AM" && splitTime[0] == 12) {
+        splitTime[0] = 24;
+      }
+
+      var sortnr = splitTime[0] + parseInt(splitTime[1]) / 60
+      return sortnr;
+    }
+
+    function timeToString(currentTime) {
+      if (currentTime.substring(0, 2) == 12) { // 12 noon
+        currentTime = "12" + currentTime.substring(2) + "PM";
+      } else if (currentTime.substring(0, 2) == 24) { // 12 midnight
+        currentTime = "12" + currentTime.substring(2) + "AM";
+      } else if (parseInt(currentTime.substring(0, 2)) > 12) {
+        currentTime = String(parseInt(currentTime.substring(0, 2)) - 12) + currentTime.substring(2) + "PM";
+      } else {
+        currentTime += "AM";
+      }
+      return currentTime;
+    }
 
     function deliveryAlert(){
       var tbl = document.getElementById("patientTable").tBodies[0];
@@ -233,23 +259,14 @@ function confirmationButtonHandler(evt){
     }
 
     function setTime() {
-      console.log("sadfsA");
       var currentTime = getTime();
-      
-      if (currentTime.substring(0, 2) == 12) { // 12 noon
-        currentTime = "12" + currentTime.substring(2) + "PM";
-      } else if (currentTime.substring(0, 2) == 24) { // 12 midnight
-        currentTime = "12" + currentTime.substring(2) + "AM";
-      } else if (parseInt(currentTime.substring(0, 2)) > 12) {
-        currentTime = String(parseInt(currentTime.substring(0, 2)) - 12) + currentTime.substring(2) + "PM";
-      } else {
-        currentTime += "AM";
-      }
+      currentTime = timeToString(currentTime);
       document.getElementById('currentTime').innerHTML = 'Current Time: ' + currentTime;
       console.log("ran");
     }
     var t = setInterval(setTime, 3000);
     setTime();
+
 });
 
   var patientData = '{ "patients": \
