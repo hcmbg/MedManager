@@ -95,11 +95,6 @@
   <script type="text/javascript">
     // changes time so that the alert shows up
     $(document).ready(function (e) {
-      // $('#currentTime').click(function(evt) {
-      //   document.getElementById('currentTime').innerHTML = 'Current Time: 6:55AM';
-      //    $('#alertModal').modal('show');
-      // });
-
       // resets at logout for testing
       $('#login').click(function (evt) {
         localStorage.setItem("newPatient", "false");
@@ -108,17 +103,8 @@
           var boxID = checkboxes[i].id.toString();
           localStorage.setItem(boxID, "false");
         }
+        localStorage.setItem("modified", false)
       });
-
-      // $('input').on('change', function() {
-      //   var checkbox = this;
-      //   // $('#deliveredModal').modal('show');
-      //   // $('#deliveredModal').on('shown.bs.modal', function () {
-      //   //   $('#password').focus();
-      // });
-
-      // $('#deliveredModal').on('hidden.bs.modal', function (evt) {
-      //   // console.log("revert back the checkbox status");
 
       });
 

@@ -26,8 +26,12 @@ $(document).ready( function() {
     $('#saveNewMeds').click(function (e) {
       localStorage.setItem("newMeds", "true");
     });
-    var data = $.parseJSON(patientData)
-    localStorage.setItem("data", JSON.stringify(data))
+    if (!localStorage.getItem("modified")) {
+      data = $.parseJSON(patientData)
+      localStorage.setItem("data", JSON.stringify(data))
+    } else {
+      data = $.parseJSON(localStorage.getItem("data"))
+    }
 
      $.each(data.patients, function(patientIndex, patient) {
        $.each(patient.meds, function(medIndex, med) {
