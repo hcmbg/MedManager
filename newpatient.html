@@ -107,15 +107,12 @@
 							<th>Frequency</th>
 						</tr>
 						<tr style="font-size: 14;">
-							<td> <fieldset class="form-group">
-								<input type="name" class="form-control" id="name" placeholder="Enter name">
-							</fieldset> </td>
-							<td> <fieldset class="form-group">
-								<input type="dosage" class="form-control" id="dosage" placeholder="Enter dosage">
-							</fieldset> </td></td>
-							<td><fieldset class="form-group">
-								<input type="frequency" class="form-control" id="frequency" placeholder="Enter frequency">
-							</fieldset> </td></td>
+							<td> 
+								<input type="name" class="form-control" id="medName" placeholder="Enter name"></td>
+							<td> 
+								<input type="dosage" class="form-control" id="dosage" placeholder="Enter dosage"></td></td>
+							<td>
+								<input type="frequency" class="form-control" id="frequency" placeholder="Enter frequency"></td></td>
 						</tr>
 						<tr> <td colspan = "3">
 							<button type="button" id="addMed" class="btn btn-default navbar-btn">+ Add Medication</button>
@@ -140,7 +137,7 @@
 
   <script type="text/javascript">
 		  $("#addMed").click(function() {
-				$('#medTable tr:last').before('<tr style="font-size: 14;"><td> <fieldset class="form-group"><input type="name" class="form-control" id="name" placeholder="Enter name"></fieldset> </td><td> <fieldset class="form-group"><input type="dosage" class="form-control" id="dosage" placeholder="Enter dosage"></fieldset> </td></td><td><fieldset class="form-group"><input type="frequency" class="form-control" id="frequency" placeholder="Enter frequency"></fieldset> </td></td></tr>');
+				$('#medTable tr:last').before('<tr style="font-size: 14;"><td> <input type="name" class="form-control" id="medName" placeholder="Enter name"></td><td> <input type="dosage" class="form-control" id="dosage" placeholder="Enter dosage"></td></td><td><input type="frequency" class="form-control" id="frequency" placeholder="Enter frequency"></td></td></tr>');
 		});
 
 		function addPatient() {
@@ -155,12 +152,13 @@
 				 }
 			} 
 			// go through cells 
-			for (var i=1; i<table.rows.length; i++) { 
+			for (var i=1; i<table.rows.length-1; i++) { 
 				var tableRow = table.rows[i]; var rowData = {}; 
 				for (var j=0; j<tableRow.cells.length; j++) { 
-					rowData[ headers[j] ] = tableRow.cells[j].innerHTML; 
+					console.log($(tableRow.cells[j].children[0]).val())
+					rowData[ headers[j] ] = $(tableRow.cells[j].children[0]).val(); 
 				} 
-				rowData["time"] = "<<<SARON>>"
+				rowData["time"] = randomTime();
 				medData.push(rowData); 
 			} 
 			data.patients.push(
@@ -177,9 +175,30 @@
 				});
 			console.log(data)
 			localStorage.setItem("data", JSON.stringify(data))
-			localStorage.setItem("modified", true);
+			localStorage.setItem("modified", "true");
 
 		}
+
+		function randomTime() {
+			var hours = Math.floor((Math.random() * 12) + 1);
+			var minutes = Math.floor(Math.random() * 4) * 15;
+			var amPM = Math.round(Math.random());
+			if (String(hours).length == 1) {
+				hours = "0" + hours;
+			}
+			if (String(minutes).length == 1) {
+				minutes = "0" + minutes;
+			}
+			if (amPM == 0) {
+				amPM = "AM";
+			} else {
+				amPM = "PM";
+			}
+			var time = hours + ":" + minutes + amPM;
+			return time;
+		}
+		randomTime();
+
 	</script>
 
 

@@ -26,9 +26,9 @@ $(document).ready( function() {
     $('#saveNewMeds').click(function (e) {
       localStorage.setItem("newMeds", "true");
     });
-    if (!localStorage.getItem("modified")) {
+    if (localStorage.getItem("modified")=="false") {
       data = $.parseJSON(patientData)
-      localStorage.setItem("data", JSON.stringify(data))
+      localStorage.setItem("data", patientData)
     } else {
       data = $.parseJSON(localStorage.getItem("data"))
     }
@@ -110,17 +110,17 @@ $(document).ready( function() {
     }
 
     // var submitButton = document.getElementById('checkboxConfirmation');
-    var submitButton = document.getElementById('submitPassword');
-    submitButton.addEventListener('click', submitButtonHandler);
+    // var submitButton = document.getElementById('submitPassword');
+    // submitButton.addEventListener('click', submitButtonHandler);
     // var confirmButton = document.getElementById('confirm1');
     // confirmButton.addEventListener('click', confirmationButtonHandler);
 
-    // creates new table row with the added patient's information
-    var newPatient = localStorage.newPatient;
-    if (newPatient == "true") {
-      var row = document.getElementById("patientTable").insertRow(-1);
-      row.innerHTML = '<tr><td>7:30AM</td><td>Mary Jones</br><a  href="newpatient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
-    }
+    // // creates new table row with the added patient's information
+    // var newPatient = localStorage.newPatient;
+    // if (newPatient == "true") {
+    //   var row = document.getElementById("patientTable").insertRow(-1);
+    //   row.innerHTML = '<tr><td>7:30AM</td><td>Mary Jones</br><a  href="newpatient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
+    // }
 
     $(function(){
       var checkboxes = document.getElementsByClassName("deliveredBox");
@@ -131,13 +131,13 @@ $(document).ready( function() {
       }
     });
 
-    // creates new table row with the added patient's information
-    var newPatient = localStorage.newPatient;
-    if (newPatient == "true") {
-      var row = document.getElementById("patientTable").insertRow(-1);
-      row.innerHTML = '<tr><td>12:00PM</td><td>Mary Jones</br><a  href="newpatient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
-      // should be based on actual inputs
-    }
+    // // creates new table row with the added patient's information
+    // var newPatient = localStorage.newPatient;
+    // if (newPatient == "true") {
+    //   var row = document.getElementById("patientTable").insertRow(-1);
+    //   row.innerHTML = '<tr><td>12:00PM</td><td>Mary Jones</br><a  href="newpatient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
+    //   // should be based on actual inputs
+    // }
 
     function refreshPage(){
       window.location.reload();
@@ -284,6 +284,7 @@ $(document).ready( function() {
     var t = setInterval(setTime, 3000);
     setTime();
 
+
     function incrementTime() {
 
     }
@@ -342,7 +343,7 @@ $(document).ready( function() {
                 { \
                     "medName" : "Nitroglycerin", \
                     "dosage" : "300mg", \
-                    "frequency" : "Every 2-4 hours, daily", \
+                    "frequency" : "Once daily", \
                     "time" : "11:00AM", \
                     "lastAdmin": "05:00AM 5/2/16" \
                 } \
@@ -361,7 +362,7 @@ $(document).ready( function() {
                 { \
                     "medName" : "MedicationB", \
                     "dosage" : "400mg", \
-                    "frequency" : "Hourly", \
+                    "frequency" : "Once daily", \
                     "time" : "07:30AM", \
                     "lastAdmin": "08:00AM 5/1/16" \
                 } \
