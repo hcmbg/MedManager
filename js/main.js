@@ -236,6 +236,7 @@ $(document).ready( function() {
         $('#alertModal').modal('show');
       }
     }
+    var x = setInterval(deliveryAlert, 6000);
     deliveryAlert();
 
     function timeToDecimal(stringTime){
