@@ -280,15 +280,11 @@ $(document).ready( function() {
     function setTime() {
       var currentTime = getTime();
       currentTime = timeToString(currentTime);
-      document.getElementById('currentTime').innerHTML = 'Current Time: ' + currentTime;
+      document.getElementById('currentTime').innerHTML = '<span class="glyphicon glyphicon-time"></span>' + ' ' + currentTime;
     }
     var t = setInterval(setTime, 3000);
     setTime();
 
-
-    function incrementTime() {
-
-    }
     function colorBoxes(){
       var tbl = document.getElementById("patientTable").tBodies[0];
       for(var i=1, len=tbl.rows.length; i<len; i++){ //start at row one to preserve header
@@ -306,7 +302,6 @@ $(document).ready( function() {
 
           var dosage = localStorage.getItem("dosage"+patientIndex+medIndex);
           $("#dosageConfirm"+patientIndex+medIndex).attr("value", dosage);
-
         }
     }
   }

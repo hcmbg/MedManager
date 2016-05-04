@@ -12,7 +12,7 @@
 </head>
 <body>
   <nav class="navbar navbar-inverse">
-    <div class="container">
+    <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>
@@ -25,10 +25,10 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
 
-          <!-- not a visible link because this is sort of a cheat so that we can get the alert -->
-          <p class="navbar-text" id="currentTime" href="#"></p>
-          <p class="navbar-text">Signed in as: Katrina</p>
-          <li><a href="index.html" id="login">Logout</a></li>
+          <li><p class="navbar-text" id="currentTime"></p></li>
+          <li><p class="navbar-text"><span class="glyphicon glyphicon-user"></span> Katrina</p></li>
+          <li><a href="index.html" id="login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+
         </ul>
       </div>
     </div>

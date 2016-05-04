@@ -7,29 +7,30 @@
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-
 </head>
 <body>
-	<nav class="navbar navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="main.html">MedManager</a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<p class="navbar-text" id="currentTime" href="#"></p>
-					<p class="navbar-text">Signed in as: Katrina</p>
-					<li><a href="index.html" id="login">Logout</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="main.html">MedManager</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+
+          <li><p class="navbar-text" id="currentTime"></p></li>
+          <li><p class="navbar-text"><span class="glyphicon glyphicon-user"></span> Katrina</p></li>
+          <li><a href="index.html" id="login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 	<a type="button" class="btn btn-primary" id = "edit" style="float:right; margin-right: 1%;">Edit</a>
 	<div class="page-header" style="margin: 0px;">
@@ -112,13 +113,35 @@
       			$("#medTable").append(row)
       		});
 
-     //  	var newMeds = localStorage.newMeds;
-	    // if (newMeds == "true") {
-	    //   var row = document.getElementById("medTable").insertRow(-1);
-	    //   row.style.fontSize = "14";
-	    //   row.innerHTML = '<tr style="font-size: 14;"><td> Morphine </td><td> 10mg</td><td>Every 4 hours, as needed</td><td>N/A</td></tr>';
-	    // }
-	  	
+      	function timeToString(currentTime) {
+	      if (currentTime.substring(0, 2) == 12) { // 12 noon
+	        currentTime = "12" + currentTime.substring(2) + "PM";
+	      } else if (currentTime.substring(0, 2) == 0) { // 12 midnight
+	        currentTime = "12" + currentTime.substring(2) + "AM";
+	      } else if (parseInt(currentTime.substring(0, 2)) > 12) {
+	        currentTime = String(parseInt(currentTime.substring(0, 2)) - 12) + currentTime.substring(2) + "PM";
+	      } else {
+	        currentTime += "AM";
+	      }
+	      return currentTime;
+	    }
+
+	    function getTime() {
+	      var today = new Date();
+	      var h = ('0'+today.getHours()).slice(-2);
+	      var m = ('0'+today.getMinutes()).slice(-2);
+	      var now = h+":"+m;
+	      return now;
+	    }
+
+	    function setTime() {
+	      var currentTime = getTime();
+	      currentTime = timeToString(currentTime);
+	      document.getElementById('currentTime').innerHTML = '<span class="glyphicon glyphicon-time"></span>' + ' ' + currentTime;
+	    }
+	    var t = setInterval(setTime, 3000);
+	    setTime();
+
 	  </script>
 
 </body>

@@ -5,32 +5,33 @@
 	<link href="css/bootstrap.css" rel="stylesheet"/>
 	<link href='https://fonts.googleapis.com/css?family=Poppins:400,700' rel='stylesheet' type='text/css'>
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 </head>
 <body>
-	<nav class="navbar navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="main.html">MedManager</a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<p class="navbar-text" id="currentTime" href="#"></p>
-					<p class="navbar-text">Signed in as: Katrina</p>
-					<li><a href="index.html" id="login">Logout</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<form class="form-inline" role="form">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="main.html">MedManager</a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+
+          <li><p class="navbar-text" id="currentTime"></p></li>
+          <li><p class="navbar-text"><span class="glyphicon glyphicon-user"></span> Katrina</p></li>
+          <li><a href="index.html" id="login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+<!-- 	<form class="form-inline" role="form">
 	  
 	<fieldset class="form-group" style="width: 45%;">
 		<input type="Name" class="form-control" id="inputName" style="height: 83px; font-size: 36; margin-left: 2%; width: 70%;">
@@ -41,8 +42,23 @@
 	    <input type="room" class="form-control" id="room" style="height: 50px; font-size: 18; vertical-align: bottom;">
 	  </div>
 
-</form>
+</form> -->
 	<table align= "center" style="width: 98%;">
+		<tr style="width: 100%">
+		<td valign = "top" style="width: 33%; padding-right: 25px;">
+			<!-- <div class="form-group" style="padding-right: 50px; width: 49%;"> -->
+				<input type="Name" class="form-control" id="inputName" placeholder="Name" style="height: 83px; font-size: 36; width: 100%;">
+			<!-- </div> -->
+		</td>
+		<td valign = "top" style="width: 33%; padding-right: 25px;">
+			<div class="form-group">
+				<!-- <label for="room" style="font-size: 20; font-weight: normal; margin-left: -150px; vertical-align: bottom; color: #777;">Room:</label> -->
+				<label for="room" style="font-size: 20; font-weight: normal; vertical-align: bottom; color: #777;">Room:</label>
+	    		<input type="room" class="form-control" id="room" placeholder="Room #" style="height: 50px; font-size: 18; vertical-align: bottom; width:50%;">
+	 		</div>
+		</td>
+		</tr>
+
 		<tr style="width: 100%;">
 			<td valign = "top" style="width: 33%; padding-right: 25px;">
 
@@ -190,6 +206,36 @@
 	    }
 
 	    $("#saveNewMeds").attr("href","sharon_lastname.html?id="+patientIndex);
+
+	    function timeToString(currentTime) {
+	      if (currentTime.substring(0, 2) == 12) { // 12 noon
+	        currentTime = "12" + currentTime.substring(2) + "PM";
+	      } else if (currentTime.substring(0, 2) == 0) { // 12 midnight
+	        currentTime = "12" + currentTime.substring(2) + "AM";
+	      } else if (parseInt(currentTime.substring(0, 2)) > 12) {
+	        currentTime = String(parseInt(currentTime.substring(0, 2)) - 12) + currentTime.substring(2) + "PM";
+	      } else {
+	        currentTime += "AM";
+	      }
+	      return currentTime;
+	    }
+
+	    function getTime() {
+	      var today = new Date();
+	      var h = ('0'+today.getHours()).slice(-2);
+	      var m = ('0'+today.getMinutes()).slice(-2);
+	      var now = h+":"+m;
+	      return now;
+	    }
+
+	    function setTime() {
+	      var currentTime = getTime();
+	      currentTime = timeToString(currentTime);
+	      document.getElementById('currentTime').innerHTML = '<span class="glyphicon glyphicon-time"></span>' + ' ' + currentTime;
+	    }
+	    var t = setInterval(setTime, 3000);
+	    setTime();
+
 	</script>
 
 
