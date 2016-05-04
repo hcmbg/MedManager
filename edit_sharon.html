@@ -180,13 +180,13 @@
 			for (var i=1; i<table.rows.length-1; i++) { 
 				var tableRow = table.rows[i]; var rowData = {}; 
 				for (var j=0; j<tableRow.cells.length; j++) { 
-					console.log($(tableRow.cells[j].children[0]).val())
 					rowData[ headers[j] ] = $(tableRow.cells[j].children[0]).val(); 
 				} 
 				rowData["time"] = randomTime();
-				medData.push(rowData); 
+				if (rowData["medName"] != "") {
+					medData.push(rowData); 
+				}
 			} 
-			console.log(patientData)
 	    	data.patients[patientIndex]= {
 					name: $("#inputName").val(),
 					room: $("#room").val(),

@@ -174,8 +174,9 @@
 					rowData[ headers[j] ] = $(tableRow.cells[j].children[0]).val(); 
 				} 
 				rowData["time"] = randomTime();
-				medData.push(rowData); 
-			} 
+				if (rowData["medName"] != "") {
+					medData.push(rowData); 
+				}			} 
 			data.patients.push(
 				{
 					name: $("#inputName").val(),
