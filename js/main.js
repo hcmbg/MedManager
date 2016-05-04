@@ -38,9 +38,8 @@ $(document).ready( function() {
     }
 
     function setTime() {
-      console.log("sadfsA");
       var currentTime = getTime();
-      
+
       if (currentTime.substring(0, 2) == 12) { // 12 noon
         currentTime = "12" + currentTime.substring(2) + "PM";
       } else if (currentTime.substring(0, 2) == 24) { // 12 midnight
