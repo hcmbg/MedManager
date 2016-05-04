@@ -37,7 +37,7 @@ $(document).ready( function() {
        $.each(patient.meds, function(medIndex, med) {
         var tblRow = '<tr> <td>' + med.time + '</td><td>' + patient.name + '</br> <a  href="sharon_lastname.html?id=' + patientIndex + '" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>' +
          '<td>' + patient.room + '</td> <td>' + med.medName + '</br> <span style="font-style: italic;">' + med.dosage + '</span></td>' +
-         '<td> <form id ="dosageForm'+patientIndex+medIndex+'"><input type="dosage" class="form-control" id="dosageConfirm' + patientIndex+medIndex + '" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage' + patientIndex+medIndex + '" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" id="confirm' + patientIndex+medIndex + '">Confirm</button><input type="checkbox" class="deliveredBox" id="box' + patientIndex+medIndex + '" style="display:none"></form></td> </tr>';
+         '<td> <form id ="dosageForm'+patientIndex+medIndex+'"><input type="dosage" class="form-control" id="dosageConfirm' + patientIndex+medIndex + '" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage' + patientIndex+medIndex + '" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" style="width: 55%;" id="confirm' + patientIndex+medIndex + '">Confirm</button><input type="checkbox" class="deliveredBox" id="box' + patientIndex+medIndex + '" style="display:none"></form></td> </tr>';
          $(tblRow).appendTo("#patientTable");
          $("#confirm"+patientIndex+medIndex).click(function(evt) {
             var valid = true;
@@ -289,22 +289,6 @@ $(document).ready( function() {
 
     }
     function colorBoxes(){
-      // for(var medIndex=1, len=data.patients.length; medIndex<len; medIndex++){ //start at row one to preserve header
-      //   for (var patientIndex=0, len=data.patients[medIndex].meds.length; patientIndex<len; patientIndex++){
-      //     var checkboxID = "box"+patientIndex+medIndex; 
-      //     var checkbox = document.getElementById(checkboxID);
-      //     console.log(checkbox);
-      //     if (checkbox != null){
-      //       if (localStorage.getItem(checkbox.id.toString()) == 'true'){
-      //         console.log("yes");
-      //       }
-      //       else{
-      //         console.log("no");
-      //       }
-
-      //     }
-      //   }
-      // }
       var tbl = document.getElementById("patientTable").tBodies[0];
       for(var i=1, len=tbl.rows.length; i<len; i++){ //start at row one to preserve header
         var row = tbl.rows[i];
