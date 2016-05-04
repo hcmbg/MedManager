@@ -115,7 +115,8 @@
 
   <script type="text/javascript">
 	    var patientIndex = window.location.search.substring(window.location.search.indexOf("=")+1);
-  		var patientData = $.parseJSON(localStorage.getItem("data")).patients[patientIndex]
+  		var data = $.parseJSON(localStorage.getItem("data"))
+  		var patientData = data.patients[patientIndex]
   		$("#inputName").val(patientData.name)
   		$("#room").val(patientData.room)
   		$("#dob").val(patientData.dob)
@@ -132,6 +133,25 @@
 	  	$("#addMed").click(function() {
 			$('#medTable tr:last').before('<tr style="font-size: 14;"><td> <input type="name" class="form-control" id="name" placeholder="Enter name"> </td><td> <input type="dosage" class="form-control" id="dosage" placeholder="Enter dosage"></td></td><td><input type="frequency" class="form-control" id="frequency" placeholder="Enter frequency"></td></td></tr>');
 	    });
+
+		function randomTime() {
+			var hours = Math.floor((Math.random() * 12) + 1);
+			var minutes = Math.floor(Math.random() * 4) * 15;
+			var amPM = Math.round(Math.random());
+			if (String(hours).length == 1) {
+				hours = "0" + hours;
+			}
+			if (String(minutes).length == 1) {
+				minutes = "0" + minutes;
+			}
+			if (amPM == 0) {
+				amPM = "AM";
+			} else {
+				amPM = "PM";
+			}
+			var time = hours + ":" + minutes + amPM;
+			return time;
+		}
 
 	    function saveData() {
 			var medData = []
@@ -153,7 +173,8 @@
 				rowData["time"] = randomTime();
 				medData.push(rowData); 
 			} 
-	    	patientData.patients[patientIndex]= {
+			console.log(patientData)
+	    	data.patients[patientIndex]= {
 					name: $("#inputName").val(),
 					room: $("#room").val(),
 					meds: medData,
@@ -167,13 +188,15 @@
 			localStorage.setItem("data", JSON.stringify(data))
 			localStorage.setItem("modified", "true");
 	    }
+
+	    $("#saveNewMeds").attr("href","sharon_lastname.html?id="+patientIndex);
 	</script>
 
 
 	<nav class="navbar navbar-default navbar-fixed-bottom roundbox">
     	<div class="container">
       		<a href="#" type="button" class="btn btn-default navbar-btn" style="width: 30%; height: 40px; font-size: 18; margin-left: 5%">Save</a>
-      		<a href="sharon_lastname.html" type="button" class="btn btn-default navbar-btn" id="saveNewMeds" style="width: 30%; height: 40px; font-size: 18;" onclick=saveData()>Save and Exit</a>
+      		<a type="button" class="btn btn-default navbar-btn" id="saveNewMeds" style="width: 30%; height: 40px; font-size: 18;" onclick=saveData()>Save and Exit</a>
       		<button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#confirmationModal" style="width: 30%; height: 40px; font-size: 18;">Exit</button>
   	</nav>
 
@@ -192,6 +215,10 @@
 	    </div>
 	  </div>
 	</div>
+
+	<script>
+		    $("#saveNewMeds").attr("href","sharon_lastname.html?id="+patientIndex);
+	</script>
 
 </body>
 </html>
