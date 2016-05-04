@@ -37,7 +37,7 @@ $(document).ready( function() {
        $.each(patient.meds, function(medIndex, med) {
         var tblRow = '<tr> <td>' + med.time + '</td><td>' + patient.name + '</br> <a  href="sharon_lastname.html?id=' + patientIndex + '" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>' +
          '<td>' + patient.room + '</td> <td>' + med.medName + '</br> <span style="font-style: italic;">' + med.dosage + '</span></td>' +
-         '<td> <form id ="dosageForm'+patientIndex+medIndex+'"><input type="dosage" class="form-control" id="dosageConfirm' + patientIndex+medIndex + '" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage' + patientIndex+medIndex + '" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" id="confirm' + patientIndex+medIndex + '">Confirm</button><input type="checkbox" class="deliveredBox" id="box' + patientIndex+medIndex + '" style="display:none"></form></td> </tr>';
+         '<td> <form id ="dosageForm'+patientIndex+medIndex+'"><input type="dosage" class="form-control" id="dosageConfirm' + patientIndex+medIndex + '" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage' + patientIndex+medIndex + '" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" style="width: 55%;" id="confirm' + patientIndex+medIndex + '">Confirm</button><input type="checkbox" class="deliveredBox" id="box' + patientIndex+medIndex + '" style="display:none"></form></td> </tr>';
          $(tblRow).appendTo("#patientTable");
          $("#confirm"+patientIndex+medIndex).click(function(evt) {
             var valid = true;
@@ -57,17 +57,20 @@ $(document).ready( function() {
              $('#errorMessage'+patientIndex+medIndex).hide();
              localStorage.setItem("box"+patientIndex+medIndex, "true");
              $("#box"+patientIndex+medIndex).is(":checked");
-             console.log(localStorage.getItem("box"+patientIndex+medIndex) == 'true');
+             
              sortTable();
              evt.preventDefault();
              $("#dosageConfirm"+patientIndex+medIndex).css("background-color", "#80ffaa");
              $("#dosageConfirm"+patientIndex+medIndex).css("border-color", "#80ffaa");
-             $("#dosageConfirm"+patientIndex+medIndex).disabled = 'disabled';
-             $("#confirm"+patientIndex+medIndex).disabled= 'disabled';
+             $("#dosageConfirm"+patientIndex+medIndex).attr('disabled', "disabled");
+             $("#confirm"+patientIndex+medIndex).attr('disabled', "disabled");
+             localStorage.setItem("dosage"+patientIndex+medIndex, parseInt(med.dosage).toString());
+
             }
          });
        });
      });
+    colorBoxes();
 
     function submitButtonHandler(evt){
         this.removeEventListener('click', submitButtonHandler);
@@ -281,6 +284,31 @@ $(document).ready( function() {
     var t = setInterval(setTime, 3000);
     setTime();
 
+
+    function incrementTime() {
+
+    }
+    function colorBoxes(){
+      var tbl = document.getElementById("patientTable").tBodies[0];
+      for(var i=1, len=tbl.rows.length; i<len; i++){ //start at row one to preserve header
+        var row = tbl.rows[i];
+        var checkbox = document.getElementsByClassName("deliveredBox")[i-1];
+        if (localStorage.getItem(checkbox.id.toString()) == 'true'){
+          var len = checkbox.id.toString().length;
+
+          var medIndex = checkbox.id.toString().substring(len-1);
+          var patientIndex = checkbox.id.toString().substring(len-2,len-1);
+          $("#dosageConfirm"+patientIndex+medIndex).css("background-color", "#80ffaa");
+          $("#dosageConfirm"+patientIndex+medIndex).css("border-color", "#80ffaa");
+          $("#dosageConfirm"+patientIndex+medIndex).attr('disabled', "disabled");
+          $("#confirm"+patientIndex+medIndex).attr('disabled', "disabled");
+
+          var dosage = localStorage.getItem("dosage"+patientIndex+medIndex);
+          $("#dosageConfirm"+patientIndex+medIndex).attr("value", dosage);
+
+        }
+    }
+  }
 });
 
   var patientData = '{ "patients": \
