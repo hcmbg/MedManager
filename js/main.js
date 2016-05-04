@@ -276,10 +276,6 @@ $(document).ready( function() {
     var t = setInterval(setTime, 3000);
     setTime();
 
-    function incrementTime() {
-
-    }
-
 });
 
   var patientData = '{ "patients": \
@@ -298,7 +294,7 @@ $(document).ready( function() {
                 { \
                     "medName" : "Nitroglycerin", \
                     "dosage" : "300mg", \
-                    "frequency" : "Every 2-4 hours, daily", \
+                    "frequency" : "Once daily", \
                     "time" : "11:00AM", \
                     "lastAdmin": "05:00AM 5/2/16" \
                 } \
@@ -317,7 +313,7 @@ $(document).ready( function() {
                 { \
                     "medName" : "MedicationB", \
                     "dosage" : "400mg", \
-                    "frequency" : "Hourly", \
+                    "frequency" : "Once daily", \
                     "time" : "07:30AM", \
                     "lastAdmin": "08:00AM 5/1/16" \
                 } \
