@@ -8,6 +8,7 @@
   <link href='https://fonts.googleapis.com/css?family=Poppins:400,700' rel='stylesheet' type='text/css'>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- <script src="js/main.js"></script> -->
   <style>
   body {
     font-family: 'Poppins', sans-serif;
@@ -108,7 +109,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">MedManager</a>
+	      <a class="navbar-brand" href="main.html">MedManager</a>
 	    </div>
 	    <div class="navbar-collapse collapse" id="collapse_navbar">
 	      <ul class="nav navbar-nav navbar-right">
@@ -122,10 +123,12 @@
 	  </div>
 	</nav>
 
+  <div class="container-fluid">
 	<a href="edit_sharon.html" type="button" class="btn btn-primary" style="float:right; margin-right: 1%;">Edit</a>
 	<div class="page-header" style="margin: 0px;">
-  		<h1 style:"margin-left: 50px;"><span id="name"></span> <small>&nbsp; Room: <span id = "room"> </span></small></h1>
+  		<h1 style:"margin-left: 50px;"><span style="margin-left:15px" id="name"></span> <small>&nbsp; Room: <span id = "room"> </span></small></h1>
 	</div>
+  </div>
 
 	<div class="container-fluid">
 		<table align= "center" style="width: 98%;">
@@ -188,19 +191,19 @@
 		        localStorage.setItem("newMeds", "false");
       		});
       		var patientIndex = window.location.search.substring(window.location.search.indexOf("=")+1);
-      		var patientData = $.parseJSON(localStorage.getItem("data")).patients[patientIndex]
-      		$("#name").html(patientData.name)
-      		$("#room").html(patientData.room)
-      		$("#dob").html(patientData.dob)
-      		$("#height").html(patientData.height)
-      		$("#weight").html(patientData.weight)
-      		$("#address").html(patientData.address)
-      		$("#allergies").html(patientData.allergies)
-      		$("#medInfo").html(patientData.medicalInfo)
+      		var patientData = $.parseJSON(localStorage.getItem("data")).patients[patientIndex];
+      		$("#name").html(patientData.name);
+      		$("#room").html(patientData.room);
+      		$("#dob").html(patientData.dob);
+      		$("#height").html(patientData.height);
+      		$("#weight").html(patientData.weight);
+      		$("#address").html(patientData.address);
+      		$("#allergies").html(patientData.allergies);
+      		$("#medInfo").html(patientData.medicalInfo);
       		$.each(patientData.meds, function(index, med) {
-      			var row = '<tr style="font-size: 14;"><td>'+med.medName+'</td><td>'+med.dosage+'</td><td>'+med.frequency+'</td><td>5:00AM 4/8/16</td></tr>'
-      			$("#medTable").append(row)
-      		})
+      			var row = '<tr style="font-size: 14;"><td>'+med.medName+'</td><td>'+med.dosage+'</td><td>'+med.frequency+'</td><td>5:00AM 4/8/16</td></tr>';
+      			$("#medTable").append(row);
+      		});
 
 	     });
 
