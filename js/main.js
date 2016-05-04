@@ -248,7 +248,7 @@ function confirmationButtonHandler(evt){
       document.getElementById('currentTime').innerHTML = 'Current Time: ' + currentTime;
       console.log("ran");
     }
-    var t = setTimeout(setTime, 3000);
+    var t = setInterval(setTime, 3000);
     setTime();
 });
 
