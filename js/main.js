@@ -33,9 +33,29 @@ $(document).ready( function() {
        $.each(patient.meds, function(medIndex, med) {
         var tblRow = '<tr> <td>' + med.time + '</td><td>' + patient.name + '</br> <a  href="sharon_lastname.html?id=' + patientIndex + '" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>' +
          '<td>' + patient.room + '</td> <td>' + med.medName + '</br> <span style="font-style: italic;">' + med.dosage + '</span></td>' +
-         '<td> <form id ="dosageForm"><input type="dosage" class="form-control" id="dosageConfirm' + medIndex + '" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" id="confirm' + medIndex + '">Confirm</button><input type="checkbox" class="deliveredBox" id="box' + medIndex + '" style="display:none"></form></td> </tr>';
+         '<td> <form id ="dosageForm'+medIndex+'"><input type="dosage" class="form-control" id="dosageConfirm' + medIndex + '" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" id="confirm' + medIndex + '">Confirm</button><input type="checkbox" class="deliveredBox" id="box' + medIndex + '" style="display:none"></form></td> </tr>';
          $(tblRow).appendTo("#patientTable");
-         $
+         console.log("before")
+         $("#confirm"+medIndex).click(function() {
+            var valid = true;
+            console.log("in")
+            if (document.getElementById('dosageConfirm'+medIndex).value.indexOf(parseInt(med.dosage)) == -1){
+                valid = false;
+            }
+            if (!valid){
+              console.log(valid)
+              $('#errorMessage').show();
+              document.getElementById('dosageForm'+medIndex).reset();
+              }
+            else{
+              $('#errorMessage').hide();
+              var checkbox = document.getElementById('box'+medIndex);
+              localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
+              console.log(valid);
+              sortTable();
+            }
+         });
+         console.log("after")
        });
      });
 
@@ -79,14 +99,14 @@ $(document).ready( function() {
     // var submitButton = document.getElementById('checkboxConfirmation');
     var submitButton = document.getElementById('submitPassword');
     submitButton.addEventListener('click', submitButtonHandler);
-    var confirmButton = document.getElementById('confirm1');
-    confirmButton.addEventListener('click', confirmationButtonHandler);
+    // var confirmButton = document.getElementById('confirm1');
+    // confirmButton.addEventListener('click', confirmationButtonHandler);
 
     // creates new table row with the added patient's information
     var newPatient = localStorage.newPatient;
     if (newPatient == "true") {
       var row = document.getElementById("patientTable").insertRow(-1);
-      row.innerHTML = '<tr><td>7:30AM</td><td>Mary Jones</br><a  href="created_patient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
+      row.innerHTML = '<tr><td>7:30AM</td><td>Mary Jones</br><a  href="newpatient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
     }
 
     $(function(){
@@ -102,7 +122,7 @@ $(document).ready( function() {
     var newPatient = localStorage.newPatient;
     if (newPatient == "true") {
       var row = document.getElementById("patientTable").insertRow(-1);
-      row.innerHTML = '<tr><td>12:00PM</td><td>Mary Jones</br><a  href="created_patient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
+      row.innerHTML = '<tr><td>12:00PM</td><td>Mary Jones</br><a  href="newpatient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
       // should be based on actual inputs
     }
 
@@ -247,7 +267,6 @@ $(document).ready( function() {
     function setTime() {
       var currentTime = getTime();
       currentTime = timeToString(currentTime);
-      console.log("string: " + currentTime);
       document.getElementById('currentTime').innerHTML = 'Current Time: ' + currentTime;
     }
     var t = setInterval(setTime, 3000);
