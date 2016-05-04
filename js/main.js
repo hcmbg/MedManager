@@ -49,7 +49,8 @@ $(document).ready( function() {
              console.log(valid)
              $('#errorMessage'+patientIndex+medIndex).show();
              evt.preventDefault();
-             $("#dosageForm"+patientIndex+medIndex).css("border-color :red");
+             $("#dosageConfirm"+patientIndex+medIndex).css("border-color", "red");
+            
            }
    
            else{
@@ -59,10 +60,10 @@ $(document).ready( function() {
              console.log(localStorage.getItem("box"+patientIndex+medIndex) == 'true');
              sortTable();
              evt.preventDefault();
-             $("#dosageForm"+patientIndex+medIndex).css("background-color : #80ffaa");
-             $("#dosageForm"+patientIndex+medIndex).css("border-color : #80ffaa");
-             // $("#dosageForm"+patientIndex+medIndex).disabled = 'disabled';
-             // $("#confirm"+patientIndex+medIndex).disabled= 'disabled';
+             $("#dosageConfirm"+patientIndex+medIndex).css("background-color", "#80ffaa");
+             $("#dosageConfirm"+patientIndex+medIndex).css("border-color", "#80ffaa");
+             $("#dosageConfirm"+patientIndex+medIndex).disabled = 'disabled';
+             $("#confirm"+patientIndex+medIndex).disabled= 'disabled';
             }
          });
        });
