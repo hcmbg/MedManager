@@ -159,14 +159,13 @@ $(document).ready( function() {
         var row = tbl.rows[i];
         var checkbox = document.getElementsByClassName("deliveredBox")[i-1];
 
+        var stringTime = row.cells[0].textContent;
+        var sortnr = timeToDecimal(stringTime) - parseInt(currentTime);
+        if (sortnr < 0) {
+          sortnr += 24;
+        }
         if (localStorage.getItem(checkbox.id.toString()) == 'true') {
-          var sortnr = 25;
-        } else {
-          var stringTime = row.cells[0].textContent;
-          var sortnr = timeToDecimal(stringTime) - parseInt(currentTime);
-          if (sortnr < 0) {
-            sortnr += 24;
-          }
+          sortnr += 25;
         }
 
         if(!isNaN(sortnr)) store.push([sortnr, row]);
