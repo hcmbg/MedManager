@@ -26,13 +26,14 @@ $(document).ready( function() {
     $('#saveNewMeds').click(function (e) {
       localStorage.setItem("newMeds", "true");
     });
+    localStorage.setItem("data", patientData)
 
     var data = $.parseJSON(patientData)
      $.each(data.patients, function(patientIndex, patient) {
        $.each(patient.meds, function(medIndex, med) {
-        var tblRow = '<tr> <td>' + parseInt(7+parseInt(patientIndex)) + ':00 </td><td>' + patient.name + '</br> <a  href="sharon_lastname.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>' +
+        var tblRow = '<tr> <td>' + med.time + '</td><td>' + patient.name + '</br> <a  href="sharon_lastname.html?id=' + patientIndex + '" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>' +
          '<td>' + patient.room + '</td> <td>' + med.medName + '</br> <span style="font-style: italic;">' + med.dosage + '</span></td>' +
-         '<td > <form id ="dosageForm"><input type="dosage" class="form-control" id="dosageConfirm1" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" id="confirm1">Confirm</button><input type="checkbox" class="deliveredBox" id="box1" style="display:none"></form></td> </tr>';
+         '<td> <form id ="dosageForm"><input type="dosage" class="form-control" id="dosageConfirm' + medIndex + '" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" id="confirm' + medIndex + '">Confirm</button><input type="checkbox" class="deliveredBox" id="box' + medIndex + '" style="display:none"></form></td> </tr>';
          $(tblRow).appendTo("#patientTable");
        });
      });
@@ -277,15 +278,21 @@ function confirmationButtonHandler(evt){
                 { \
                     "medName" : "Rivaroxaban", \
                     "dosage" : "200mg", \
-                    "frequency" : "Once daily" \
+                    "frequency" : "Once daily", \
+                    "time" : "07:00AM" \
                 }, \
                 { \
                     "medName" : "Nitroglycerin", \
                     "dosage" : "300mg", \
-                    "frequency" : "Every 2-4 hours, daily" \
+                    "frequency" : "Every 2-4 hours, daily", \
+                    "time" : "11:00AM" \
                 } \
             ], \
-            "patientInfo" : "<p>DOB: 11/3/1986</p><p> Height: 5ft 4in</p><p> Weight: 160 lb</p><p>Address: 123 Rainbow Road </br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Boston, MA 02212</p><p> Allergies: Grass</p>", \
+            "dob" : "11/3/1986", \
+            "height" : "5ft 4in", \
+            "weight" : "160 lb", \
+            "address" : "123 Rainbow Road </br> Boston, MA 02212", \
+            "allergies" : "Grass", \
             "medicalInfo" : "<p>Lorem ipsum dolor sit amet, vim et legendos urbanitas, eu epicuri imperdiet eum. Ius lucilius constituto persequeris ex, mel ne constituto vituperata. Semper nonumes electram quo ne. Mandamus pericula usu ex, an sed wisi dicam. Suas noluisse hendrerit sit eu, eam epicurei erroribus at. </p><p>Cum docendi accommodare ad, ad debitis principes consetetur qui. Pro alterum sensibus ex, ut sit libris quaeque ancillae. Sea sint iudico doming cu, quaeque detracto cum id. Ludus lucilius ad duo, pri impetus accumsan detraxit id. At amet modo delicata vim, debitis nostrum convenire vis ei. Delenit dolorem conclusionemque te mei, an vim impedit disputationi. Mel natum scriptorem ei, ad dictas delectus has, sed oratio legimus te.</p><p>Ne stet dicam oportere qui, populo eruditi eu duo. Sed aliquam adolescens ullamcorper at. Dicam consulatu ne has, qui et tale atomorum persequeris. Ut voluptatibus signiferumque nec.</p><p>Nonumy legimus volumus usu eu. Persius mediocrem eu nam, te eos omnium facilis, sed idque graeci intellegebat ne. Qui simul integre democritum id, vim ei tantas ridens imperdiet. Et sale officiis conclusionemque mei. Per ea sint dolore singulis, simul vocent ei cum.</p><p>Mel simul munere no, elitr mnesarchum efficiantur no est. An urbanitas scripserit qui, vim simul decore everti ut, vel errem legere adipisci id. Mei ut enim aperiam, verear nonumes salutatus sed at. Vix te petentium assentior philosophia, mea et accusam splendide reprimique.</p>" \
         }, \
         { \
@@ -295,10 +302,15 @@ function confirmationButtonHandler(evt){
                 { \
                     "medName" : "MedicationB", \
                     "dosage" : "400mg", \
-                    "frequency" : "Hourly" \
+                    "frequency" : "Hourly", \
+                    "time" : "07:30AM" \
                 } \
             ], \
-            "patientInfo" : "<p>DOB: 06/06/1966</p><p> Height: 6ft 6in</p><p> Weight: 166 lb</p><p>Address: 666 Fire Road </br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Boston, MA 06666</p><p> Allergies: Sun</p>", \
+            "dob" : "06/06/1966", \
+            "height" : "6ft 6in", \
+            "weight" : "166 lb", \
+            "address" : "666 Fire Road </br> Boston, MA 06666", \
+            "allergies" : "Sun, Moon", \
             "medicalInfo" : "<p>Lorem ipsum dolor sit amet, vim et legendos urbanitas, eu epicuri imperdiet eum. Ius lucilius constituto persequeris ex, mel ne constituto vituperata. Semper nonumes electram quo ne. Mandamus pericula usu ex, an sed wisi dicam. Suas noluisse hendrerit sit eu, eam epicurei erroribus at. </p><p>Cum docendi accommodare ad, ad debitis principes consetetur qui. Pro alterum sensibus ex, ut sit libris quaeque ancillae. Sea sint iudico doming cu, quaeque detracto cum id. Ludus lucilius ad duo, pri impetus accumsan detraxit id. At amet modo delicata vim, debitis nostrum convenire vis ei. Delenit dolorem conclusionemque te mei, an vim impedit disputationi. Mel natum scriptorem ei, ad dictas delectus has, sed oratio legimus te.</p><p>Ne stet dicam oportere qui, populo eruditi eu duo. Sed aliquam adolescens ullamcorper at. Dicam consulatu ne has, qui et tale atomorum persequeris. Ut voluptatibus signiferumque nec.</p><p>Nonumy legimus volumus usu eu. Persius mediocrem eu nam, te eos omnium facilis, sed idque graeci intellegebat ne. Qui simul integre democritum id, vim ei tantas ridens imperdiet. Et sale officiis conclusionemque mei. Per ea sint dolore singulis, simul vocent ei cum.</p><p>Mel simul munere no, elitr mnesarchum efficiantur no est. An urbanitas scripserit qui, vim simul decore everti ut, vel errem legere adipisci id. Mei ut enim aperiam, verear nonumes salutatus sed at. Vix te petentium assentior philosophia, mea et accusam splendide reprimique.</p>" \
         }, \
         { \
@@ -308,12 +320,18 @@ function confirmationButtonHandler(evt){
                 { \
                     "medName" : "MedicationC", \
                     "dosage" : "300mg", \
-                    "frequency" : "Once daily" \
+                    "frequency" : "Once daily", \
+                    "time" : "08:00AM" \
                 } \
             ], \
-            "patientInfo" : "<p>DOB: 12/31/1999</p><p> Height: 4ft 11in</p><p> Weight: 100 lb</p><p>Address: 123 Milennium Road </br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Boston, MA 02212</p><p> Allergies: None</p>", \
+            "dob" : "12/31/1999", \
+            "height" : "4ft 11in", \
+            "weight" : "100 lb", \
+            "address" : "123 Milennium Road </br> Boston, MA 02212", \
+            "allergies" : "None", \
             "medicalInfo" : "<p>Lorem ipsum dolor sit amet, vim et legendos urbanitas, eu epicuri imperdiet eum. Ius lucilius constituto persequeris ex, mel ne constituto vituperata. Semper nonumes electram quo ne. Mandamus pericula usu ex, an sed wisi dicam. Suas noluisse hendrerit sit eu, eam epicurei erroribus at. </p><p>Cum docendi accommodare ad, ad debitis principes consetetur qui. Pro alterum sensibus ex, ut sit libris quaeque ancillae. Sea sint iudico doming cu, quaeque detracto cum id. Ludus lucilius ad duo, pri impetus accumsan detraxit id. At amet modo delicata vim, debitis nostrum convenire vis ei. Delenit dolorem conclusionemque te mei, an vim impedit disputationi. Mel natum scriptorem ei, ad dictas delectus has, sed oratio legimus te.</p><p>Ne stet dicam oportere qui, populo eruditi eu duo. Sed aliquam adolescens ullamcorper at. Dicam consulatu ne has, qui et tale atomorum persequeris. Ut voluptatibus signiferumque nec.</p><p>Nonumy legimus volumus usu eu. Persius mediocrem eu nam, te eos omnium facilis, sed idque graeci intellegebat ne. Qui simul integre democritum id, vim ei tantas ridens imperdiet. Et sale officiis conclusionemque mei. Per ea sint dolore singulis, simul vocent ei cum.</p><p>Mel simul munere no, elitr mnesarchum efficiantur no est. An urbanitas scripserit qui, vim simul decore everti ut, vel errem legere adipisci id. Mei ut enim aperiam, verear nonumes salutatus sed at. Vix te petentium assentior philosophia, mea et accusam splendide reprimique.</p>" \
         } \
     ] \
 }';
+
 
