@@ -1,34 +1,125 @@
 <html>
 <head> 
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="css/main.css" rel="stylesheet" />
-  <link href="css/bootstrap.css" rel="stylesheet"/>
+  <!-- <link href="css/bootstrap.css" rel="stylesheet"/> -->
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link href='https://fonts.googleapis.com/css?family=Poppins:400,700' rel='stylesheet' type='text/css'>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <style>
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+  .navbar-inverse {
+    background-color: #028090;
+    border-color:#028090;
+    border-radius:0;
+  }
+  .navbar-inverse .navbar-brand {
+    color:white;
+    font-size:32px;
+  }
+  .btn-default:hover{
+    background-color: #008073;
+    border-color:#008073;
+    color: white;
+  }
+  .btn-default {
+    color: white;
+    background-color: #00a896;
+    border-color: #00a896;
+  }
+
+  .btn-primary {
+    background-color: #00a896;
+    border-color: #00a896;
+  }
+  .panel-info > .panel-heading {
+    background-color: #00A896;
+
+  }
+  .panel-info {
+    border-color:#00A896;
+  }
+
+  .panel-info h3{
+    color: white;
+  }
+
+  .col-xs-4{
+    width:100%;
+  }
+  .col-xs-6{
+    width:100%;
+  }
+  @media (min-width: 480px) {
+    .col-xs-4{
+      width:33.33333%;
+    }
+    .col-xs-6{
+      width:50%;
+    }
+  }
+  
+  /*for main.html only*/
+  .navbar-inverse .navbar-nav > li > a {
+    color:white;
+  }
+
+  thead {
+    background-color: #d9edf7
+  }
+  .table thead tr.first-row th {
+    line-height:2;
+  }
+  .form-group {
+    margin-bottom:10px;
+  }
+  .dosageForm {
+    margin-bottom:3px;
+  }
+  td form.dosageForm div.form-group .dosage_delivered {
+    width:55%;
+  }
+
+  /*newpatient.html only*/
+  table tr td div.panel div.panel-heading {
+  	background-color:#d9edf7
+  }
+  table tr td div.panel {
+  	border-color:#bce8f1;
+  }
+  table tr td div.panel div.panel-heading h3 {
+  	color:#31708f;
+  }
 
 
+  </style>
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="main.html">MedManager</a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav navbar-right">
-					<p class="navbar-text" id="currentTime" href="#"></p>
-					<p class="navbar-text">Signed in as: Katrina</p>
-					<li><a href="index.html" id="login">Logout</a></li>
-				</ul>
-			</div>
-		</div>
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse_navbar">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">MedManager</a>
+	    </div>
+	    <div class="navbar-collapse collapse" id="collapse_navbar">
+	      <ul class="nav navbar-nav navbar-right">
+
+	        <!-- not a visible link because this is sort of a cheat so that we can get the alert -->
+	        <li><a class="inert_a" id="currentTime"></a></li>
+	        <li><a class="inert_a"><span class="glyphicon glyphicon-user"></span> Katrina</a></li>
+	        <li><a href="index.html" id="login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+	      </ul>
+	    </div>
+	  </div>
 	</nav>
 
 	<a href="edit_sharon.html" type="button" class="btn btn-primary" style="float:right; margin-right: 1%;">Edit</a>
@@ -36,57 +127,59 @@
   		<h1 style:"margin-left: 50px;"><span id="name"></span> <small>&nbsp; Room: <span id = "room"> </span></small></h1>
 	</div>
 
-	<table align= "center" style="width: 98%;">
-		<tr style="width: 100%;">
-			<td valign = "top" style="width: 33%; padding-right: 25px;">
+	<div class="container-fluid">
+		<table align= "center" style="width: 98%;">
+			<tr style="width: 100%;">
+				<td valign = "top" style="width: 33%; padding-right: 25px;">
 
-				<div style="text-align:center;">
-				      <img src="photos/sharon.JPG" style="height: 200px; width: auto;">
-				    
-				</div>
-
-				<div class="panel panel-info">
-				  <div class="panel-heading">
-				    <h3 class="panel-title">Patient Information</h3>
-				  </div>
-				  <div class="panel-body" style="font-size: 14;">
-				    <p>DOB: <span id = "dob"></span></p>
-					<p> Height: <span id = "height"></span></p>
-					<p> Weight: <span id = "weight"></span></p>
-					<p>Address: <span id = "address"></span></p>
-					<p> Allergies: <span id = "allergies"></span></p>
-				  </div>
-				</div>
-			</td>
-			<td valign = "top" style="width: 65%;">
-				<div class="panel panel-info">
-					<!-- Default panel contents -->
-					<div class="panel-heading">
-						<h3 class="panel-title">Medication</h3>
+					<div style="text-align:center;">
+					      <img src="photos/sharon.JPG" style="height: 200px; width: auto;">
+					    
 					</div>
 
-					<!-- Table -->
-					<table class="table" id="medTable">
-						<tr style="font-size: 14;">
-							<th>Name</th>
-							<th>Dosage</th>
-							<th>Frequency</th>
-							<th>Last administered</th>
-						</tr>
-					</table>
-				</div>
-
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h3 class="panel-title">Medical Information</h3>
+					<div class="panel panel-info">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Patient Information</h3>
+					  </div>
+					  <div class="panel-body" style="font-size: 14;">
+					    <p>DOB: <span id = "dob"></span></p>
+						<p> Height: <span id = "height"></span></p>
+						<p> Weight: <span id = "weight"></span></p>
+						<p>Address: <span id = "address"></span></p>
+						<p> Allergies: <span id = "allergies"></span></p>
+					  </div>
 					</div>
-					<div class="panel-body" id = "medInfo" style="font-size: 14;">
-					</div>
-				</div>
-			</td>
-		</tr>
+				</td>
+				<td valign = "top" style="width: 65%;">
+					<div class="panel panel-info">
+						<!-- Default panel contents -->
+						<div class="panel-heading">
+							<h3 class="panel-title">Medication</h3>
+						</div>
 
-	</table>
+						<!-- Table -->
+						<table class="table" id="medTable">
+							<tr style="font-size: 14;">
+								<th>Name</th>
+								<th>Dosage</th>
+								<th>Frequency</th>
+								<th>Last administered</th>
+							</tr>
+						</table>
+					</div>
+
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">Medical Information</h3>
+						</div>
+						<div class="panel-body" id = "medInfo" style="font-size: 14;">
+						</div>
+					</div>
+				</td>
+			</tr>
+
+		</table>
+	</div>
 
 	<script type="text/javascript">
 		$(document).ready(function (e) {
