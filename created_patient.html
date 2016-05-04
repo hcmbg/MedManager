@@ -1,0 +1,131 @@
+<html>
+<head> 
+	<meta charset="UTF-8">
+	<link href="css/bootstrap.css" rel="stylesheet"/>
+	<link href="css/main.css" rel="stylesheet" />
+	<link href='https://fonts.googleapis.com/css?family=Poppins:400,700' rel='stylesheet' type='text/css'>
+
+
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="main.html">MedManager</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<p class="navbar-text">Patient Page: Mary Jones</p>
+					<p class="navbar-text" id="currentTime" href="#"></p>
+					<p class="navbar-text">Signed in as: Katrina</p>
+					<li><a href="index.html">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- put alert modal in once it's created -->
+
+<!--   	<script type="text/javascript">
+	    // changes time so that the alert shows up
+	    $(document).ready(function (e) {
+	      $('#currentTime').click(function(evt) {
+	        document.getElementById('currentTime').innerHTML = 'Current Time: somethingAM';
+	         $('#alertModal').modal('show');
+	      });
+     </script> -->
+
+	<div class="page-header" >
+  		<h1 style:"margin-left: 50px;">Mary Jones <small>&nbsp; Room: 211</small></h1>
+	</div>
+
+	<table align= "center" style="width: 98%;">
+		<tr style="width: 100%;">
+			<td valign = "top" style="width: 33%; padding-right: 25px;">
+
+				<div style="text-align:center;">
+				      <img src="photos/newpatient.PNG" style="height: 200px; width: auto;">
+				    
+				</div>
+
+				<div class="panel panel-info">
+				  <div class="panel-heading">
+				    <h3 class="panel-title">Patient Information</h3>
+				  </div>
+				  <div class="panel-body" style="font-size: 14;">
+				    <p>DOB: </p>
+					<p> Height: </p>
+					<p> Weight:</p>
+					<p>Address:</p>
+					<p> Allergies: </p>
+				  </div>
+				</div>
+			</td>
+			<td valign = "top" style="width: 65%;">
+				<div class="panel panel-info">
+					<!-- Default panel contents -->
+					<div class="panel-heading">
+						<h3 class="panel-title">Medication</h3>
+					</div>
+
+					<!-- Table -->
+					<table class="table" id="medTable">
+						<tr style="font-size: 14;">
+							<th>Name</th>
+							<th>Dosage</th>
+							<th>Frequency</th>
+							<th>Last administered</th>
+						</tr>
+						<tr style="font-size: 14;">
+							<td>Medication X </td>
+							<td>2 tablets</td>
+							<td>Twice a day</td>
+							<td>N/A</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Medical Information</h3>
+					</div>
+					<div class="panel-body" style="font-size: 14;">
+					<p>Qui id aperiri adipisci adversarium. Vix cibo soluta ei, cu vis dolorum omittantur. Duo at dicant appellantur. Eos inani vivendum ea, eu recteque expetenda nec. Sea ut reque populo, in mel modus iudico, in eos agam mnesarchum.
+
+					<p>Errem disputationi no pri. Quo modo cotidieque id. An eum probo ridens, ius diam ludus in. Sapientem necessitatibus eum ut, mei ea fugit falli singulis. Etiam vituperatoribus quo cu, iusto veniam no vel, at duo docendi conceptam consetetur.</p>
+
+					<p>Solum graece ullamcorper has at. Has ad malis hendrerit. Ei nisl partiendo sit, autem impedit philosophia eum id, mea affert alterum at. Eam simul decore at, nostro perpetua in per. Eu sensibus scribentur vel, eum in dolore accusata.</p>
+
+					<p>Nam quem definitiones in, no novum tibique usu, modo nobis ocurreret ex quo. Ut legere quodsi his. Semper eirmod evertitur ut mei. Sed duis similique eu. Has error pertinacia assueverit ut, veri dissentiet cu mea.</p>
+
+					<p>Regione dissentias nam ei, eum quod choro ponderum an, et magna congue postulant eum. Ne mundi dicam verear mel, ea eos doming inciderint, everti vivendum pertinacia per ex. Oratio accusata eleifend cu nam. Eam at alia nostro, eu vel prima omnes. Alia ullum te sea, officiis singulis voluptaria ad mel.</p>
+
+					<p>Odio insolens repudiandae id mea, epicuri postulant salutandi vix id. Ne qui option numquam, minimum similique accommodare ea has, duo legere tincidunt intellegebat no. Cum agam nemore id. Vis ut summo ornatus, novum audire consectetuer sit te. Quo ad dictas eligendi, case sale putant ne vix.</p>
+
+					<p>Et ipsum soleat eos, duo et dicit ullamcorper. Et nostrum oporteat consectetuer sit, justo posidonium philosophia his ne. Malorum prodesset posidonium et mea, est putent sententiae adipiscing ad. Sed an solet dissentiet reprehendunt, mel timeam probatus maluisset at, harum oportere ius et. Ex eripuit alterum has, et sanctus eligendi est. Dicit eligendi oportere at mei. Duo everti fabulas deserunt ea.</p>
+
+					<p>Vitae oratio molestiae te pri. Eum insolens theophrastus ei, vel sumo postea oporteat id. Alia prima copiosae eos cu. Sit dictas scribentur ea. No pri utamur philosophia, sit tation scaevola ad.</p>
+
+					<p>Sumo tacimates vel et, latine saperet ad has. Vix ancillae perpetua salutandi no, eam et quod utamur. Mei cu nullam labitur periculis, simul appetere eum cu. Aeque facilis noluisse at eum. No per sale affert referrentur.</p>
+
+					<p>Ad vix molestie delectus, maiorum definitiones signiferumque mea ex. Cu singulis splendide efficiantur per, nulla minim signiferumque ad pri. No dignissim constituto vim. Id vel meis discere commune, iudico scriptorem et vel, ei illud singulis cum.</p>
+				</div>
+			</td>
+		</tr>
+		
+
+
+	</table>
+
+
+
+
+
+</body>
+</html>

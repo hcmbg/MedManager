@@ -27,32 +27,30 @@ $(document).ready( function() {
       localStorage.setItem("newMeds", "true");
     });
 
-      var data = $.parseJSON(patientData)
-       $.each(data.patients, function(patientIndex, patient) {
-         $.each(patient.meds, function(medIndex, med) {
-          var tblRow = '<tr> <td>' + parseInt(7+parseInt(patientIndex)) + ':00 </td><td>' + patient.name + '</br> <a  href="sharon_lastname.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>' +
-           '<td>' + patient.room + '</td> <td>' + med.medName + '</br> <span style="font-style: italic;">' + med.dosage + '</span></td>' +
-           '<td > <form id ="dosageForm"><input type="dosage" class="form-control" id="dosageConfirm1" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" id="confirm1">Confirm</button><input type="checkbox" class="deliveredBox" id="box1"></form></td> </tr>';
-           $(tblRow).appendTo("#patientTable");
-         });
+    var data = $.parseJSON(patientData)
+     $.each(data.patients, function(patientIndex, patient) {
+       $.each(patient.meds, function(medIndex, med) {
+        var tblRow = '<tr> <td>' + parseInt(7+parseInt(patientIndex)) + ':00 </td><td>' + patient.name + '</br> <a  href="sharon_lastname.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>' +
+         '<td>' + patient.room + '</td> <td>' + med.medName + '</br> <span style="font-style: italic;">' + med.dosage + '</span></td>' +
+         '<td > <form id ="dosageForm"><input type="dosage" class="form-control" id="dosageConfirm1" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" id="confirm1">Confirm</button><input type="checkbox" class="deliveredBox" id="box1" style="display:none"></form></td> </tr>';
+         $(tblRow).appendTo("#patientTable");
        });
-
-
+     });
 
 function submitButtonHandler(evt){
-  this.removeEventListener('click', submitButtonHandler);
-  var valid = true;
-  if (document.getElementById('password').value != "med") {
-    valid = false;
-  }
-  if (!valid) {
-    $('#errorMessage').show();
-    evt.preventDefault();
-  } else {
-    localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
-    sortTable();
-  }
-}
+        this.removeEventListener('click', submitButtonHandler);
+        var valid = true;
+        if (document.getElementById('password').value != "med") {
+          valid = false;
+        }
+        if (!valid) {
+          $('#errorMessage').show();
+          evt.preventDefault();
+        } else {
+          localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
+          sortTable();
+        }
+      }
 
 function confirmationButtonHandler(evt){
   var valid = true;
@@ -77,35 +75,19 @@ function confirmationButtonHandler(evt){
     
   
 }
-        // var submitButton = document.getElementById('checkboxConfirmation');
-        var submitButton = document.getElementById('submitPassword');
-        submitButton.addEventListener('click', submitButtonHandler);
-        var confirmButton = document.getElementById('confirm1');
-        confirmButton.addEventListener('click', confirmationButtonHandler);
-        
-
-
-        // $('submitPassword').click(function(evt){
-        //   var valid = true;
-        //   if (document.getElementById('password').value != "med") {
-        //     valid = false;
-        //   }
-        //   if (!valid) {
-        //       $('#errorMessage').show();
-        //       evt.preventDefault();
-        //   } else {
-        //     localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
-        //     sortTable();
-        //   }
-        // });
+    // var submitButton = document.getElementById('checkboxConfirmation');
+    var submitButton = document.getElementById('submitPassword');
+    submitButton.addEventListener('click', submitButtonHandler);
+    var confirmButton = document.getElementById('confirm1');
+    confirmButton.addEventListener('click', confirmationButtonHandler);
 
 
 
-        // cancel does not change localStorage but changes temporary look, 
-        // this does not work
-        $("#cancelPassword").on("click", function (evt) {
-          console.log("cancel");
-        });
+    // cancel does not change localStorage but changes temporary look, 
+    // this does not work
+    $("#cancelPassword").on("click", function (evt) {
+      console.log("cancel");
+    });
 
 
     // creates new table row with the added patient's information
@@ -113,6 +95,25 @@ function confirmationButtonHandler(evt){
     if (newPatient == "true") {
       var row = document.getElementById("patientTable").insertRow(-1);
       row.innerHTML = '<tr><td>7:30AM</td><td>Mary Jones</br><a  href="created_patient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
+    }
+
+    $(function(){
+      var checkboxes = document.getElementsByClassName("deliveredBox");
+      for (var i = 0; i < checkboxes.length; i++) {
+        var boxID = checkboxes[i].id.toString();
+        var test = localStorage.getItem(boxID) === 'true'? true: false;
+        $(checkboxes[i]).prop('checked', test || false);
+      }
+    });
+
+
+
+    // creates new table row with the added patient's information
+    var newPatient = localStorage.newPatient;
+    if (newPatient == "true") {
+      var row = document.getElementById("patientTable").insertRow(-1);
+      row.innerHTML = '<tr><td>07:30AM</td><td>Mary Jones</br><a  href="created_patient.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td><td>211</td><td>Medication X </br> 2 tablets</td><td style="text-align:center; vertical-align: middle;"><input type="checkbox" class="deliveredBox" id="box4"></td></tr>';
+      // should be based on actual inputs
     }
 
     function refreshPage(){
@@ -128,7 +129,7 @@ function confirmationButtonHandler(evt){
       }
     });
 
-    function sortTable(){
+    function sortTable(){ // should also sort relative to current time
       var tbl = document.getElementById("patientTable").tBodies[0];
       var store = [];
       for(var i=1, len=tbl.rows.length; i<len; i++){ //start at row one to preserve header
@@ -154,6 +155,8 @@ function confirmationButtonHandler(evt){
         if(!isNaN(sortnr)) store.push([sortnr, row]);
       }
       store.sort(function(x,y){
+        console.log("x: " + x[0]);
+        console.log("y: " + y[0]);
         return x[0] - y[0];
       });
       for(var i=0, len=store.length; i<len; i++){
@@ -180,7 +183,6 @@ function confirmationButtonHandler(evt){
       if(firstDelivery.substring(firstDelivery.length-2) == "PM") { //change to pm 
         hours = parseInt(hours) + 12;
         hours = hours.toString();
-        console.log(hours.length);
       } 
 
       if (hours.length == 1){
@@ -188,7 +190,6 @@ function confirmationButtonHandler(evt){
       }
 
       var delivery = hours + ":" + minutes;
-      console.log(delivery);
 
       for(var i=2, len=tbl.rows.length; i<len; i++){ //start at row one to preserve header
         var row = tbl.rows[i];
@@ -198,25 +199,17 @@ function confirmationButtonHandler(evt){
         }
       }
 
-      console.log(deliveryRows);
-
       var currentTime = getTime();
-      console.log("time: " + currentTime);
 
-      console.log(currentTime); 
       //delivery = currentTime;
       if (currentTime == delivery) {
-        //$('#alertModal').modal('show');
         var alert = document.getElementById('alertModal');
         var text = document.getElementById('modalText');
-        //console.log(text.textContent);
         var modalStart = '<p id = "modalText" style="font-size: 16; text-align: left;"><b>Reminder:</b> You have ten minutes to deliver:';
         var modalEnd = '</p>';
         var modalInner = '<span style="color: #990000;">';
         var modalMiddle = '';
         for (var i = 0; i < deliveryRows.length; i++) {
-          console.log("i: " + i);
-          console.log(tbl.rows[deliveryRows[i]]);
           var name = tbl.rows[deliveryRows[i]].cells[1].textContent;
           var med = tbl.rows[deliveryRows[i]].cells[3].textContent.split(' ')[0];
 
@@ -239,9 +232,14 @@ function confirmationButtonHandler(evt){
     }
 
     function setTime() {
+      console.log("sadfsA");
       var currentTime = getTime();
-      console.log(parseInt(currentTime.substring(0, 2)) - 12);
-      if (parseInt(currentTime.substring(0, 2)) > 12) {
+      
+      if (currentTime.substring(0, 2) == 12) { // 12 noon
+        currentTime = "12" + currentTime.substring(2) + "PM";
+      } else if (currentTime.substring(0, 2) == 24) { // 12 midnight
+        currentTime = "12" + currentTime.substring(2) + "AM";
+      } else if (parseInt(currentTime.substring(0, 2)) > 12) {
         currentTime = String(parseInt(currentTime.substring(0, 2)) - 12) + currentTime.substring(2) + "PM";
       } else {
         currentTime += "AM";
@@ -249,6 +247,7 @@ function confirmationButtonHandler(evt){
       document.getElementById('currentTime').innerHTML = 'Current Time: ' + currentTime;
       console.log("ran");
     }
+    var t = setTimeout(setTime, 3000);
     setTime();
 });
 
@@ -300,3 +299,4 @@ function confirmationButtonHandler(evt){
         } \
     ] \
 }';
+
