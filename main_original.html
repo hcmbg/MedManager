@@ -4,95 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="css/main.css" rel="stylesheet" />
-  <!-- <link href="css/bootstrap.css" rel="stylesheet"/> -->
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="css/bootstrap.css" rel="stylesheet"/>
+  <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
   <link href='https://fonts.googleapis.com/css?family=Poppins:400,700' rel='stylesheet' type='text/css'>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <style>
-  body {
-    font-family: 'Poppins', sans-serif;
-  }
-  .navbar-inverse {
-    background-color: #028090;
-    border-color:#028090;
-    border-radius:0;
-  }
-  .navbar-inverse .navbar-brand {
-    color:white;
-    font-size:32px;
-  }
-  .btn-default:hover{
-    background-color: #008073;
-    border-color:#008073;
-    color: white;
-  }
-  .btn-default {
-    color: white;
-    background-color: #00a896;
-    border-color: #00a896;
-  }
 
-  .btn-primary {
-    background-color: #00a896;
-    border-color: #00a896;
-  }
-  .panel-info > .panel-heading {
-    background-color: #00A896;
-
-  }
-  .panel-info {
-    border-color:#00A896;
-  }
-
-  .panel-info h3{
-    color: white;
-  }
-
-  .col-xs-4{
-    width:100%;
-  }
-  .col-xs-6{
-    width:100%;
-  }
-  @media (min-width: 480px) {
-    .col-xs-4{
-      width:33.33333%;
-    }
-    .col-xs-6{
-      width:50%;
-    }
-  }
-  
-  /*for main.html only*/
-  .navbar-inverse .navbar-nav > li > a {
-    color:white;
-  }
-
-  thead {
-    background-color: #d9edf7
-  }
-  .table thead tr.first-row th {
-    line-height:2;
-  }
-  .form-group {
-    margin-bottom:10px;
-  }
-  .dosageForm {
-    margin-bottom:3px;
-  }
-  td form.dosageForm div.form-group .dosage_delivered {
-    width:55%;
-  }
-
-  </style>
 </head>
 <body>
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse_navbar">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -100,99 +24,74 @@
         </button>
         <a class="navbar-brand" href="#">MedManager</a>
       </div>
-      <div class="navbar-collapse collapse" id="collapse_navbar">
+      <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
 
           <!-- not a visible link because this is sort of a cheat so that we can get the alert -->
-          <li><a class="inert_a" id="currentTime"></a></li>
-          <li><a class="inert_a"><span class="glyphicon glyphicon-user"></span> Katrina</a></li>
-          <li><a href="index.html" id="login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          <p class="navbar-text" id="currentTime" href="#"></p>
+          <p class="navbar-text">Signed in as: Katrina</p>
+          <li><a href="index.html" id="login">Logout</a></li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <div class="container-fluid" style="padding:0">
-    <div class="table-responsive">
-      <table class="table table-striped table-hover" id="patientTable">
-        <thead>
-          <tr class="first-row"> 
-            <th>Delivery Time</th>
-            <th>Patient</th>
-            <th>Room Number</th>
-            <th>Medication</th>
-            <th style="text-align:left;">Delivered?</th>
-          </tr>
-        </thead>
-        <tr>
-          <td>07:00AM</td>
-          <td>Sharon Lastname </br><a  href="sharon_lastname.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>
-          <td>503</td>
-          <td>Rivaroxaban</br> <span style="font-style: italic;">200mg</span></td>
-          <td > 
-            <div id="errorMessage1" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage </div> 
-            <form role="form" class ="dosageForm">
-              <div class="form-group">
-                <input type="text" class="form-control dosage_delivered" id="dosageConfirm1" placeholder="Dosage Delivered" style="font-size: 12;">
-              </div>
-              <div class="form-group">
-                 <input type="checkbox" class="deliveredBox" id="box1" style= "display: none;">
-                 <button type="submit" class="btn btn-default dosage_delivered" id="confirm1">Confirm</button>
-              </div>
-             </form>
-           </td>
-        </tr>
-        
+  <table class="table table-striped table-hover" id="patientTable">
+    <tr class="first-row"> 
+      <th>Delivery Time</th>
+      <th>Patient</th>
+      <th>Room Number</th>
+      <th>Medication</th>
+      <th style="text-align:left;">Delivered?</th>
+    </tr>
 
-        <tr>
-          <td>07:30AM</td>
-          <td>Ben Bitdiddle </br><a href="ben_bitdiddle.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>
-          <td>621</td>
-          <td>MedicationB </br><span style="font-style: italic;">400mg</span></td>
-          <td >
-            <div id="errorMessage2" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div>
-            <form role="form" class ="dosageForm">
-              <div class="form-group">
-                <input type="text" class="form-control dosage_delivered" id="dosageConfirm2" placeholder="Dosage Delivered" style="font-size: 12;">
-              </div>
-              <div class="form-group">
-                 <input type="checkbox" class="deliveredBox" id="box2" style= "display: none;">
-                 <button type="submit" class="btn btn-default dosage_delivered" id="confirm2">Confirm</button>
-              </div>
-             </form>
-          </td>
-        </tr>
-        
-        <tr>
-          <td>08:00AM</td>
-          <td>Pablo Sanchez </br><button type="button" class="btn btn-primary">View/Edit Patient Info</button></td>
-          <td>404</td>
-          <td>MedicationC </br><span style="font-style: italic;">300mg</span></td>
-          <td > 
-            <div id="errorMessage3" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div>
-            <form role="form" class ="dosageForm">
-              <div class="form-group">
-                <input type="text" class="form-control dosage_delivered" id="dosageConfirm3" placeholder="Dosage Delivered" style="font-size: 12;">
-              </div>
-              <div class="form-group">
-                 <input type="checkbox" class="deliveredBox" id="box3" style= "display: none;">
-                 <button type="submit" class="btn btn-default dosage_delivered" id="confirm3">Confirm</button>
-              </div>
-             </form>
-          </td>
-        </tr>
-      </table>
-    </div>
-  </div>
-
+    <tr>
+      <td>07:00AM</td>
+      <td>Sharon Lastname </br><a  href="sharon_lastname.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>
+      <td>503</td>
+      <td>Rivaroxaban</br> <span style="font-style: italic;">200mg</span></td>
+      <td > 
+        <div id="errorMessage1" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage </div> 
+        <form id ="dosageForm">
+          <input type="dosage" class="form-control" id="dosageConfirm1" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;">
+           <button type="submit" class="btn btn-success" id="confirm1">Confirm</button>
+           <input type="checkbox" class="deliveredBox" id="box1" style= "display: none;">
+         </form>
+       </td>
+    </tr>
+    
+    <tr>
+      <td>07:30AM</td>
+      <td>Ben Bitdiddle </br><a href="ben_bitdiddle.html" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>
+      <td>621</td>
+      <td>MedicationB </br><span style="font-style: italic;">400mg</span></td>
+      <td >
+        <div id="errorMessage2" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div>
+        <form class="dosageForm">
+          <input type="dosage" class="form-control" id="dosageConfirm2" placeholder="Dosage Delivered" required style="width: 55%; font-size: 12;">
+          <button type="submit" class="btn btn-success" id="confirm2">Confirm</button><input type="checkbox" class="deliveredBox" id="box2" style = "display: none;"> 
+        </form>
+      </td>
+    </tr>
+    
+    <tr>
+      <td>08:00AM</td>
+      <td>Pablo Sanchez </br><button type="button" class="btn btn-primary">View/Edit Patient Info</button></td>
+      <td>404</td>
+      <td>MedicationC </br><span style="font-style: italic;">300mg</span></td>
+      <td > 
+        <div id="errorMessage3" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div>
+        <form class="dosageForm">
+          <input type="dosage" class="form-control" id="dosageConfirm3" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"></div>
+          <button type="submit" class="btn btn-success" id="confirm3">Confirm</button><input type="checkbox" class="deliveredBox" id="box3" style = "display: none;">
+        </form>
+      </td>
+    </tr>
+  </table>
 
   <nav class="navbar navbar-default navbar-fixed-bottom">
-    <div class="container-fluid">
-      <div class="col-xs-3"></div>
-      <div class="col-xs-6">
-      <a href="newpatient.html" type="button" class="btn btn-default navbar-btn" style="height: 40px; font-size: 18; vertical-align: middle; width:100%">+ Add New Patient</a>
-      <div class="col-xs-3"></div>
-      </div>
+    <div class="container">
+      <a href="newpatient.html" type="button" class="btn btn-default navbar-btn" style="height: 40px; font-size: 18; vertical-align: middle;">+ Add New Patient</a>
     </div>
   </nav>
 
@@ -286,10 +185,10 @@
       function confirmationButtonHandler(evt){
         var valid = true;
         var button = document.getElementById(evt.target.id);
-        var rowIndex = button.parentNode.parentNode.parentNode.parentNode.rowIndex;
+        var rowIndex = button.parentNode.parentNode.parentNode.rowIndex;
         var table = document.getElementById('patientTable');
         var meds = table.rows[rowIndex].cells[3].textContent.split(' ')[1];
-        var form = table.rows[rowIndex].cells[4].children[1].children[0].children[0];
+        var form = table.rows[rowIndex].cells[4].children[1].children[0];
         var errormessage = table.rows[rowIndex].cells[4].children[0].id;
         var checkbox = table.rows[rowIndex].cells[4].children[1].children[2]
         console.log(checkbox);
@@ -308,10 +207,10 @@
         }
 
         else{
-          // $('#'+errormessage).hide();
-          // localStorage.setItem(checkbox.id.toString(), "true");
-          // $(checkbox).is(":checked");
-          // console.log(localStorage.getItem(checkbox.id.toString()) == 'true');
+          $('#'+errormessage).hide();
+          localStorage.setItem(checkbox.id.toString(), "true");
+          $(checkbox).is(":checked");
+          console.log(localStorage.getItem(checkbox.id.toString()) == 'true');
           sortTable();
           evt.preventDefault();
           form.style.backgroundColor = '#80ffaa';

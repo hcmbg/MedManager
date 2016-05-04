@@ -1,45 +1,97 @@
+<!DOCTYPE html> 
 <html>
 <head> 
  <meta charset="UTF-8">
- <link href="css/bootstrap.css" rel="stylesheet"/>
- <link href="css/main.css" rel="stylesheet" />
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- <link href="css/bootstrap.css" rel="stylesheet"/> -->
+ <!-- <link href="css/main.css" rel="stylesheet" /> -->
  <link href='https://fonts.googleapis.com/css?family=Poppins:400,700' rel='stylesheet' type='text/css'>
  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+}
+.navbar-inverse {
+  background-color: #028090;
+  border-color:#028090;
+  border-radius:0;
+}
+.navbar-inverse .navbar-brand {
+  color:white;
+  font-size:32px;
+}
+.btn-default:hover{
+  background-color: #008073;
+  border-color:#008073;
+  color: white;
+}
+.btn-default {
+  color: white;
+  background-color: #00a896;
+  border-color: #00a896;
+}
 
+.btn-primary {
+  background-color: #00a896;
+  border-color: #00a896;
+}
+.panel-info > .panel-heading {
+  background-color: #028090;
+
+}
+.panel-info {
+  border-color:#028090;
+}
+
+.panel-info h3{
+  color: white;
+}
+
+.col-xs-4{
+  width:100%;
+}
+@media (min-width: 480px) {
+  .col-xs-4{
+    width:33.33333%;
+  }
+}
+</style>
 </head>
 <body>
+
   <nav class="navbar navbar-inverse">
-    <div class="container">
+    <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
         <a class="navbar-brand" href="#">MedManager</a>
       </div>
     </div>
   </nav>
 
-  <div class="panel panel-info" style="width: 30%; margin-left: auto; margin-right: auto; margin-top: 3%;">
-    <div class="panel-heading">
-      <h3 class="panel-title">Log In</h3>
-    </div>
-    <div class="panel-body" style="font-size: 14;">
-      <div class="container">
-        <div class="card card-container">
-          <p id="profile-name" class="profile-name-card"></p>
-          <div id="errorMessage" style="color: red; display: none; padding-bottom: 10px;">Invalid username or password</div>
-          <form id="signinForm" class="form-signin" method="post">
-            <span id="reauth-email" class="reauth-email"></span>
-            <input type="username" id="username" class="form-control" placeholder="Username" required autofocus style="width: 33%; margin-bottom: 5px;">
-            <input type="password" id="password" class="form-control" placeholder="Password" required style="width: 33%; margin-bottom: 10px;">
-            <button id="signinButton" class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="submit" style="width: 33%;">Sign in</button>
-          </form>
-          <a href="#" class="forgot-password">Forgot password?</a> <!-- this does nothing -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-4"></div>
+      <div class="col-xs-4">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Log In</h3>
+          </div>
+          <div class="panel-body" style="font-size: 14;">
+            <form role="form" data-toggle="validator">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" placeholder="username" id="username">
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" placeholder="password" id="password">
+              </div>
+                <button type="submit" class="btn btn-default" id="signinButton">Submit</button>
+            </form>
+          </div>
         </div>
       </div>
+      <div class="col-xs-4"></div>
     </div>
   </div>
 

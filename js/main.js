@@ -50,7 +50,7 @@ $(document).ready( function() {
       } else {
         currentTime += "AM";
       }
-      document.getElementById('currentTime').innerHTML = 'Current Time: ' + currentTime;
+      document.getElementById('currentTime').innerHTML = '<span class="glyphicon glyphicon-time"></span>' + ' ' + currentTime;
       var t = setTimeout(setTime, 3000);
     }
     setTime();
