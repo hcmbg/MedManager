@@ -5,7 +5,6 @@
   <link href="css/bootstrap.css" rel="stylesheet"/>
   <link href='https://fonts.googleapis.com/css?family=Poppins:400,700' rel='stylesheet' type='text/css'>
   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 
@@ -32,17 +31,9 @@
 		</div>
 	</nav>
 
-<!-- 	<script type="text/javascript">
-		$(document).ready(function (e) {
-	      $('#currentTime').click(function(evt) {
-	        document.getElementById('currentTime').innerHTML = 'Current Time: somethingAM';
-	        $('#alertModal').modal('show');
-	    });
-	</script> -->
-
 	<a href="edit_sharon.html" type="button" class="btn btn-primary" style="float:right; margin-right: 1%;">Edit</a>
 	<div class="page-header" style="margin: 0px;">
-  		<h1 style:"margin-left: 50px;">Sharon Lastname <small>&nbsp; Room: 503</small></h1>
+  		<h1 style:"margin-left: 50px;"><span id="name"></span> <small>&nbsp; Room: <span id = "room"> </span></small></h1>
 	</div>
 
 	<table align= "center" style="width: 98%;">
@@ -59,11 +50,11 @@
 				    <h3 class="panel-title">Patient Information</h3>
 				  </div>
 				  <div class="panel-body" style="font-size: 14;">
-				    <p>DOB: 11/3/1986</p>
-					<p> Height: 5'4"</p>
-					<p> Weight: 160 lb</p>
-					<p>Address: 123 Rainbow Road </br> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Boston, MA 02212</p>
-					<p> Allergies: Grass</p>
+				    <p>DOB: <span id = "dob"></span></p>
+					<p> Height: <span id = "height"></span></p>
+					<p> Weight: <span id = "weight"></span></p>
+					<p>Address: <span id = "address"></span></p>
+					<p> Allergies: <span id = "allergies"></span></p>
 				  </div>
 				</div>
 			</td>
@@ -82,18 +73,6 @@
 							<th>Frequency</th>
 							<th>Last administered</th>
 						</tr>
-						<tr style="font-size: 14;">
-							<td> Rivaroxaban </td>
-							<td> 200mg</td>
-							<td>Once daily</td>
-							<td>5:00AM 4/8/16</td>
-						</tr>
-						<tr style="font-size: 14;">
-							<td> Nitroglycerin </td>
-							<td> 300mg</td>
-							<td>Every 2-4 hours, daily</td>
-							<td>10:00PM 4/7/16</td>
-						</tr>
 					</table>
 				</div>
 
@@ -101,16 +80,7 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Medical Information</h3>
 					</div>
-					<div class="panel-body" style="font-size: 14;">
-					<p>Lorem ipsum dolor sit amet, vim et legendos urbanitas, eu epicuri imperdiet eum. Ius lucilius constituto persequeris ex, mel ne constituto vituperata. Semper nonumes electram quo ne. Mandamus pericula usu ex, an sed wisi dicam. Suas noluisse hendrerit sit eu, eam epicurei erroribus at. </p>
-
-					<p>Cum docendi accommodare ad, ad debitis principes consetetur qui. Pro alterum sensibus ex, ut sit libris quaeque ancillae. Sea sint iudico doming cu, quaeque detracto cum id. Ludus lucilius ad duo, pri impetus accumsan detraxit id. At amet modo delicata vim, debitis nostrum convenire vis ei. Delenit dolorem conclusionemque te mei, an vim impedit disputationi. Mel natum scriptorem ei, ad dictas delectus has, sed oratio legimus te.</p>
-
-					<p>Ne stet dicam oportere qui, populo eruditi eu duo. Sed aliquam adolescens ullamcorper at. Dicam consulatu ne has, qui et tale atomorum persequeris. Ut voluptatibus signiferumque nec.</p>
-
-					<p>Nonumy legimus volumus usu eu. Persius mediocrem eu nam, te eos omnium facilis, sed idque graeci intellegebat ne. Qui simul integre democritum id, vim ei tantas ridens imperdiet. Et sale officiis conclusionemque mei. Per ea sint dolore singulis, simul vocent ei cum.</p>
-
-					<p>Mel simul munere no, elitr mnesarchum efficiantur no est. An urbanitas scripserit qui, vim simul decore everti ut, vel errem legere adipisci id. Mei ut enim aperiam, verear nonumes salutatus sed at. Vix te petentium assentior philosophia, mea et accusam splendide reprimique.</p>
+					<div class="panel-body" id = "medInfo" style="font-size: 14;">
 					</div>
 				</div>
 			</td>
@@ -124,14 +94,29 @@
 	      	$('#login').click(function (evt) {
 		        localStorage.setItem("newMeds", "false");
       		});
+      		var patientIndex = window.location.search.substring(window.location.search.indexOf("=")+1);
+      		var patientData = $.parseJSON(localStorage.getItem("data")).patients[patientIndex]
+      		$("#name").html(patientData.name)
+      		$("#room").html(patientData.room)
+      		$("#dob").html(patientData.dob)
+      		$("#height").html(patientData.height)
+      		$("#weight").html(patientData.weight)
+      		$("#address").html(patientData.address)
+      		$("#allergies").html(patientData.allergies)
+      		$("#medInfo").html(patientData.medicalInfo)
+      		$.each(patientData.meds, function(index, med) {
+      			var row = '<tr style="font-size: 14;"><td>'+med.medName+'</td><td>'+med.dosage+'</td><td>'+med.frequency+'</td><td>5:00AM 4/8/16</td></tr>'
+      			$("#medTable").append(row)
+      		})
+
 	     });
 
-      	var newMeds = localStorage.newMeds;
-	    if (newMeds == "true") {
-	      var row = document.getElementById("medTable").insertRow(-1);
-	      row.style.fontSize = "14";
-	      row.innerHTML = '<tr style="font-size: 14;"><td> Morphine </td><td> 10mg</td><td>Every 4 hours, as needed</td><td>N/A</td></tr>';
-	    }
+     //  	var newMeds = localStorage.newMeds;
+	    // if (newMeds == "true") {
+	    //   var row = document.getElementById("medTable").insertRow(-1);
+	    //   row.style.fontSize = "14";
+	    //   row.innerHTML = '<tr style="font-size: 14;"><td> Morphine </td><td> 10mg</td><td>Every 4 hours, as needed</td><td>N/A</td></tr>';
+	    // }
 	  	
 	  </script>
 
