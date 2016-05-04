@@ -26,36 +26,41 @@ $(document).ready( function() {
     $('#saveNewMeds').click(function (e) {
       localStorage.setItem("newMeds", "true");
     });
-    localStorage.setItem("data", patientData)
-
     var data = $.parseJSON(patientData)
+    localStorage.setItem("data", JSON.stringify(data))
+
      $.each(data.patients, function(patientIndex, patient) {
        $.each(patient.meds, function(medIndex, med) {
         var tblRow = '<tr> <td>' + med.time + '</td><td>' + patient.name + '</br> <a  href="sharon_lastname.html?id=' + patientIndex + '" type="button" class="btn btn-primary">View/Edit Patient Info</a></td>' +
          '<td>' + patient.room + '</td> <td>' + med.medName + '</br> <span style="font-style: italic;">' + med.dosage + '</span></td>' +
-         '<td> <form id ="dosageForm'+medIndex+'"><input type="dosage" class="form-control" id="dosageConfirm' + medIndex + '" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" id="confirm' + medIndex + '">Confirm</button><input type="checkbox" class="deliveredBox" id="box' + medIndex + '" style="display:none"></form></td> </tr>';
+         '<td> <form id ="dosageForm'+patientIndex+medIndex+'"><input type="dosage" class="form-control" id="dosageConfirm' + patientIndex+medIndex + '" placeholder="Dosage Delivered" style="width: 55%; font-size: 12;"> </div> <div id="errorMessage' + patientIndex+medIndex + '" style="color: red; display: none; padding-bottom: 10px; font-size: 10;">Incorrect dosage</div> <button type="submit" class="btn btn-success" id="confirm' + patientIndex+medIndex + '">Confirm</button><input type="checkbox" class="deliveredBox" id="box' + patientIndex+medIndex + '" style="display:none"></form></td> </tr>';
          $(tblRow).appendTo("#patientTable");
-         console.log("before")
-         $("#confirm"+medIndex).click(function() {
+         $("#confirm"+patientIndex+medIndex).click(function(evt) {
             var valid = true;
-            console.log("in")
-            if (document.getElementById('dosageConfirm'+medIndex).value.indexOf(parseInt(med.dosage)) == -1){
+            if (document.getElementById('dosageConfirm'+patientIndex+medIndex).value.indexOf(parseInt(med.dosage)) == -1){
                 valid = false;
             }
-            if (!valid){
-              console.log(valid)
-              $('#errorMessage').show();
-              document.getElementById('dosageForm'+medIndex).reset();
-              }
-            else{
-              $('#errorMessage').hide();
-              var checkbox = document.getElementById('box'+medIndex);
-              localStorage.setItem(checkbox.id.toString(), $(checkbox).is(':checked'));
-              console.log(valid);
-              sortTable();
+           if (!valid){
+             evt.preventDefault();
+             console.log(valid)
+             $('#errorMessage'+patientIndex+medIndex).show();
+             evt.preventDefault();
+             $("#dosageForm"+patientIndex+medIndex).css("border-color :red");
+           }
+   
+           else{
+             $('#errorMessage'+patientIndex+medIndex).hide();
+             localStorage.setItem("box"+patientIndex+medIndex, "true");
+             $("#box"+patientIndex+medIndex).is(":checked");
+             console.log(localStorage.getItem("box"+patientIndex+medIndex) == 'true');
+             sortTable();
+             evt.preventDefault();
+             $("#dosageForm"+patientIndex+medIndex).css("background-color : #80ffaa");
+             $("#dosageForm"+patientIndex+medIndex).css("border-color : #80ffaa");
+             // $("#dosageForm"+patientIndex+medIndex).disabled = 'disabled';
+             // $("#confirm"+patientIndex+medIndex).disabled= 'disabled';
             }
          });
-         console.log("after")
        });
      });
 
