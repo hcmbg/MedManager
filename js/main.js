@@ -267,7 +267,7 @@ $(document).ready( function() {
     function setTime() {
       var currentTime = getTime();
       currentTime = timeToString(currentTime);
-      document.getElementById('currentTime').innerHTML = 'Current Time: ' + currentTime;
+      document.getElementById('currentTime').innerHTML = '<span class="glyphicon glyphicon-time"></span>' + ' ' + currentTime;
     }
     var t = setInterval(setTime, 3000);
     setTime();
