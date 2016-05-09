@@ -185,6 +185,7 @@ $(document).ready( function() {
     sortTable();
 
     function deliveryAlert(){
+
       var tbl = document.getElementById("patientTable").tBodies[0];
       var deliveryRows = [1];
       var firstRow = tbl.rows[1];
@@ -208,6 +209,7 @@ $(document).ready( function() {
       }
 
       var delivery = hours + ":" + minutes;
+      console.log(delivery);
 
       for(var i=2, len=tbl.rows.length; i<len; i++){ //start at row one to preserve header
         var row = tbl.rows[i];
@@ -219,23 +221,33 @@ $(document).ready( function() {
 
       var currentTime = getTime();
 
-      if (currentTime == delivery) {
-        var alert = document.getElementById('alertModal');
-        var text = document.getElementById('modalText');
-        var modalStart = '<p id = "modalText" style="font-size: 16; text-align: left;"><b>Reminder:</b> You have ten minutes to deliver:';
-        var modalEnd = '</p>';
-        var modalInner = '<span style="color: #990000;">';
-        var modalMiddle = '';
-        for (var i = 0; i < deliveryRows.length; i++) {
-          var name = tbl.rows[deliveryRows[i]].cells[1].textContent;
-          var med = tbl.rows[deliveryRows[i]].cells[3].textContent.split(' ')[0];
+      $('#currentTime').click(function(evt) {
+        currentTime = delivery;
+        getAlert(delivery, deliveryRows, tbl);
+      });
 
-          modalMiddle += "<p style='text-align: center'>" + modalInner + med + "</span> to " + modalInner + name.substring(0, name.length - 22) + "</span></p>" ;
-        }
-        text.innerHTML = modalStart + modalMiddle + modalEnd;
-        $('#alertModal').modal('show');
+      if (currentTime == delivery) { 
+        getAlert(delivery, deliveryRows, tbl);
       }
     }
+
+    function getAlert(delivery, deliveryRows, tbl) {
+      var alert = document.getElementById('alertModal');
+      var text = document.getElementById('modalText');
+      var modalStart = '<p id = "modalText" style="font-size: 16; text-align: left;"><b>Reminder:</b> You have ten minutes to deliver:';
+      var modalEnd = '</p>';
+      var modalInner = '<span style="color: #990000;">';
+      var modalMiddle = '';
+      for (var i = 0; i < deliveryRows.length; i++) {
+        var name = tbl.rows[deliveryRows[i]].cells[1].textContent;
+        var med = tbl.rows[deliveryRows[i]].cells[3].textContent.split(' ')[0];
+
+        modalMiddle += "<p style='text-align: center'>" + modalInner + med + "</span> to " + modalInner + name.substring(0, name.length - 22) + "</span></p>" ;
+      }
+      text.innerHTML = modalStart + modalMiddle + modalEnd;
+      $('#alertModal').modal('show');
+    }
+
     var x = setInterval(deliveryAlert, 6000);
     deliveryAlert();
 
